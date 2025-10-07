@@ -30,7 +30,7 @@ const TEMPLATES = [
     id: "sehir-is-oteli",
     name: "Şehir İş Oteli",
     description: "Gri/kontrast, sade formlar; hızlı erişim ve toplantı odaklı.",
-    categories: ["Minimal", "Açık Tema"],
+    categories: ["Koyu Tema"],
     previewImage:
       "https://cdn.dribbble.com/userupload/42873780/file/original-7cd57707fdaa18688e4997ff89057540.jpg?resize=1024x7413&vertical=center",
     accentColor: "#0A3D62",
