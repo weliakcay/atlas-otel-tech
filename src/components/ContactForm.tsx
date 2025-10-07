@@ -8,8 +8,6 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
-  const webhookUrl =
-    "https://weliakcay.app.n8n.cloud/webhook/f7432f35-9e06-4e30-ba57-e8618cf3f9f5";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,7 +18,7 @@ export function ContactForm() {
     const payload = Object.fromEntries(formData.entries());
 
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
