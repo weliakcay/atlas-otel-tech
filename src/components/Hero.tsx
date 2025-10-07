@@ -14,7 +14,7 @@ export function Hero() {
       <div className={styles.inner}>
         <div className={styles.copy}>
           <p className={styles.tagline}>Atlas Otel Tech</p>
-          <h1>Komisyon değil, rezervasyon kazanın.</h1>
+          <h1>Siteniz yapay zeka teknolojisine hazır mı?</h1>
           <p className={styles.subtitle}>
             Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve
             dönüşüm odaklı.
