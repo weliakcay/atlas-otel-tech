@@ -21,7 +21,9 @@ export const metadata: Metadata = {
     "Oteliniz için hızlı, çok dilli ve AI-uyumlu web. Fiyat/yorum modülleri, online rezervasyon ve HotelAIassistant tabanlı concierge. 7 günde yayına alıyoruz.",
   metadataBase: new URL("https://example.com"),
   icons: {
-    icon: "/favicon.ico",
+    icon: "/atlas-logo.png",
+    shortcut: "/atlas-logo.png",
+    apple: "/atlas-logo.png",
   },
   openGraph: {
     title: "Atlas Otel Tech",
@@ -31,12 +33,21 @@ export const metadata: Metadata = {
     siteName: "Atlas Otel Tech",
     locale: "tr_TR",
     type: "website",
+    images: [
+      {
+        url: "https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Atlas Otel Tech Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Atlas Otel Tech",
     description:
       "7 günde AI-hazır otel web sitesi ve rezervasyon çözümü. HotelAIassistant entegrasyonu ile concierge deneyimi.",
+    images: ["https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png"],
   },
 };
 
@@ -56,7 +67,7 @@ export default function RootLayout({
           "@type": "Organization",
           name: "Atlas Otel Tech",
           url: "https://example.com",
-          logo: "https://example.com/logo.png",
+          logo: "https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png",
           sameAs: ["https://www.linkedin.com/company/atlas"],
         })}
       </Script>
