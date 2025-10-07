@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import styles from "./TemplatesGallery.module.css";
 
 const FILTERS = [
@@ -23,37 +23,53 @@ const TEMPLATES = [
     description: "Açık, ferah, taş-ahşap doku; butik/konuk evi için ideal.",
     categories: ["Açık Tema", "Butik"],
     previewImage:
-      "https://images.unsplash.com/photo-1512914890250-353c97c9e134?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/43883248/file/original-5a1d8e5c967d38683ad6738540bafaae.jpg?resize=1024x768&vertical=center",
+    accentColor: "#17A2B8",
   },
   {
     id: "sehir-is-oteli",
     name: "Şehir İş Oteli",
     description: "Gri/kontrast, sade formlar; hızlı erişim ve toplantı odaklı.",
     categories: ["Minimal", "Açık Tema"],
+    previewImage:
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=90",
+    accentColor: "#0A3D62",
   },
   {
     id: "resort-spa",
     name: "Resort & SPA",
     description: "Geniş görsel hero, spa/aktivite blokları; tatil köyleri.",
     categories: ["Görsel Ağırlıklı", "Aile"],
+    previewImage:
+      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1600&q=90",
+    accentColor: "#F39C12",
   },
   {
     id: "hostel-minimal",
     name: "Hostel Minimal",
     description: "Run-of-house ve yatakhane planları; genç, hızlı.",
     categories: ["Minimal"],
+    previewImage:
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=90",
+    accentColor: "#6C63FF",
   },
   {
     id: "dag-evi",
     name: "Dağ Evi",
     description: "Koyu tema, doğa görselleri; sezon ve hava durumuna duyarlı banner.",
     categories: ["Koyu Tema", "Adults Only"],
+    previewImage:
+      "https://images.unsplash.com/photo-1511117833895-2e62c12c2d05?auto=format&fit=crop&w=1600&q=90",
+    accentColor: "#2C3E50",
   },
   {
     id: "marina-yacht",
     name: "Marina & Yacht",
     description: "Deniz teması, oda+tekne paketleri; premium algı.",
     categories: ["Görsel Ağırlıklı", "Butik"],
+    previewImage:
+      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=90",
+    accentColor: "#1ABC9C",
   },
 ];
 
@@ -127,12 +143,17 @@ export function TemplatesGallery() {
           ))}
         </div>
         <div className={styles.grid}>
-          {filteredTemplates.map((template) => (
+          {filteredTemplates.map((template) => {
+            const accentStyle = template.accentColor
+              ? ({ "--accent-color": template.accentColor } as CSSProperties)
+              : undefined;
+            return (
             <article
               key={template.id}
               className={`${styles.card} ${
                 template.previewImage ? styles.clickableCard : ""
               }`}
+              style={accentStyle}
               onClick={
                 template.previewImage
                   ? () => handleTemplateOpen(template)
@@ -147,6 +168,18 @@ export function TemplatesGallery() {
                   : undefined
               }
             >
+              {template.previewImage && (
+                <div className={styles.previewThumb} aria-hidden="true">
+                  <Image
+                    src={template.previewImage}
+                    alt=""
+                    width={520}
+                    height={320}
+                    className={styles.thumbImage}
+                    priority={template.id === "akdeniz-butik"}
+                  />
+                </div>
+              )}
               <div className={styles.cardHeader}>
                 <div className={styles.badges}>
                   {template.categories.map((category) => (
@@ -185,7 +218,8 @@ export function TemplatesGallery() {
                 </a>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
       {activeTemplate?.previewImage && (
@@ -195,7 +229,14 @@ export function TemplatesGallery() {
           aria-modal="true"
           aria-labelledby="template-preview-heading"
         >
-          <div className={styles.modalContent}>
+          <div
+            className={styles.modalContent}
+            style={
+              activeTemplate.accentColor
+                ? ({ "--accent-color": activeTemplate.accentColor } as CSSProperties)
+                : undefined
+            }
+          >
             <header className={styles.modalHeader}>
               <h3 id="template-preview-heading">{activeTemplate.name}</h3>
               <button

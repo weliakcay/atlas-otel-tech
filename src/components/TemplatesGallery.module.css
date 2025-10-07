@@ -77,30 +77,76 @@
 }
 
 .card {
-  background: var(--color-surface);
+  --accent-color: rgba(10, 61, 98, 0.18);
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(10, 61, 98, 0.1);
+  border: 1px solid rgba(10, 61, 98, 0.08);
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 28px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  gap: 22px;
+  padding: 26px;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(150deg, var(--accent-color), rgba(255, 255, 255, 0));
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
   box-shadow: var(--shadow-hover);
+  border-color: rgba(23, 162, 184, 0.35);
 }
 
 .clickableCard {
   cursor: pointer;
 }
 
+.previewThumb {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.previewThumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(160deg, rgba(10, 61, 98, 0.2), transparent 55%);
+  opacity: 0.55;
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .cardHeader {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .cardHeader h3 {
@@ -203,20 +249,24 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 28px;
-  background: linear-gradient(135deg, rgba(10, 61, 98, 0.12), rgba(23, 162, 184, 0.25));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-color, rgba(10, 61, 98, 0.3)) 60%, #ffffff),
+    rgba(255, 255, 255, 0.92)
+  );
 }
 
 .modalHeader h3 {
   margin: 0;
   font-family: var(--font-heading);
-  color: var(--color-primary);
+  color: var(--accent-color, var(--color-primary));
   font-size: 1.4rem;
 }
 
 .modalClose {
   border: none;
   background: rgba(10, 61, 98, 0.12);
-  color: var(--color-primary);
+  color: var(--accent-color, var(--color-primary));
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -238,6 +288,7 @@
   padding: 0;
   max-height: min(80vh, 720px);
   overflow: auto;
+  background: #fff;
 }
 
 .modalBody img {
