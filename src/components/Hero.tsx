@@ -10,9 +10,31 @@ const TRUST_ITEMS = [
   { label: "KVKK" },
 ];
 
+const HERO_VIDEOS = [
+  {
+    id: "pool-sunrise",
+    src: "https://cdn.coverr.co/videos/coverr-sunrise-at-the-hotel-pool-5170/1080p.mp4",
+    poster:
+      "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  },
+  {
+    id: "beach-deck",
+    src: "https://cdn.coverr.co/videos/coverr-tropical-hotel-pool-9722/1080p.mp4",
+    poster:
+      "https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  },
+  {
+    id: "city-night",
+    src: "https://cdn.coverr.co/videos/coverr-city-hotel-room-with-night-view-7201/1080p.mp4",
+    poster:
+      "https://images.pexels.com/photos/261112/pexels-photo-261112.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  },
+];
+
 export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
+  const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -67,11 +89,40 @@ export function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [motionEnabled]);
 
+  useEffect(() => {
+    if (!motionEnabled || HERO_VIDEOS.length <= 1) {
+      setActiveVideo(0);
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActiveVideo((current) => (current + 1) % HERO_VIDEOS.length);
+    }, 14000);
+
+    return () => window.clearInterval(interval);
+  }, [motionEnabled]);
+
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
   const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
     <section id="hero" className={styles.hero}>
+      <div className={styles.videoBackground} aria-hidden="true">
+        {HERO_VIDEOS.map((video, index) => (
+          <video
+            key={video.id}
+            className={`${styles.backgroundVideo} ${index === activeVideo ? styles.activeVideo : ""}`}
+            src={video.src}
+            poster={video.poster}
+            muted
+            playsInline
+            loop
+            preload={motionEnabled ? "auto" : "metadata"}
+            autoPlay={motionEnabled}
+          />
+        ))}
+        <div className={styles.videoOverlay} />
+      </div>
       <div className={styles.backgroundGradient} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.copy}>

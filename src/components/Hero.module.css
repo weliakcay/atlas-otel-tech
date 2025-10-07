@@ -3,19 +3,55 @@
   overflow: hidden;
   padding: 140px 28px 120px;
   background-color: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.videoBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.backgroundVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.15) contrast(1.05) brightness(1.06);
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  will-change: opacity;
+}
+
+.activeVideo {
+  opacity: 1;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(10, 33, 56, 0.82), rgba(10, 33, 56, 0.4)),
+    radial-gradient(circle at 15% 20%, rgba(23, 162, 184, 0.25), transparent 55%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
 
 .backgroundGradient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top left, rgba(10, 61, 98, 0.18), transparent 55%),
-    linear-gradient(135deg, rgba(10, 61, 98, 0.15), rgba(23, 162, 184, 0.12) 55%, transparent);
+  background: radial-gradient(circle at top left, rgba(10, 61, 98, 0.2), transparent 60%),
+    linear-gradient(135deg, rgba(10, 61, 98, 0.35), rgba(23, 162, 184, 0.22) 55%, transparent);
   pointer-events: none;
+  z-index: 1;
 }
 
 .inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin: 0 auto;
   max-width: var(--section-max-width);
   display: grid;
@@ -461,5 +497,11 @@
 
   .previewFooter {
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backgroundVideo {
+    transition: none;
   }
 }
