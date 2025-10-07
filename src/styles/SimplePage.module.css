@@ -1,0 +1,56 @@
+.page {
+  padding: 120px 28px;
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--color-text);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 3vw, 3rem);
+  color: var(--color-primary);
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section h2 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  font-size: 1.6rem;
+}
+
+.section p,
+.section li {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.list {
+  padding-left: 20px;
+  list-style: disc;
+  display: grid;
+  gap: 8px;
+}
+
+.backLink {
+  margin-top: 40px;
+  font-weight: 600;
+  color: var(--color-accent);
+}

@@ -1,0 +1,180 @@
+.section {
+  padding: 90px 28px;
+  background: radial-gradient(circle at center, rgba(23, 162, 184, 0.12), transparent 60%);
+}
+
+.inner {
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: rgba(23, 162, 184, 0.1);
+  padding: 6px 14px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  color: var(--color-primary);
+}
+
+.header p {
+  color: var(--color-muted);
+}
+
+.form {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid rgba(10, 61, 98, 0.1);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  border-radius: 12px;
+  border: 1px solid rgba(10, 61, 98, 0.12);
+  padding: 12px 16px;
+  background: #fff;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  resize: vertical;
+}
+
+.inputGroup input:focus-visible,
+.inputGroup select:focus-visible,
+.inputGroup textarea:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.25);
+}
+
+.messageField {
+  grid-column: 1 / -1;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--color-muted);
+}
+
+.checkbox input[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: var(--color-primary);
+}
+
+.checkbox a {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.actions button:hover,
+.actions button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.actions button:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.actions a {
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-weight: 600;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+  color: var(--color-primary);
+  background: rgba(242, 245, 247, 0.8);
+  transition: transform var(--transition-base), border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.actions a:hover,
+.actions a:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.feedback {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.feedback a {
+  color: var(--color-accent);
+  margin-left: 8px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions button,
+  .actions a {
+    text-align: center;
+    width: 100%;
+  }
+}
