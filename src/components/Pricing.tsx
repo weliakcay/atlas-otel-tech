@@ -119,7 +119,7 @@ export function Pricing() {
             </article>
           ))}
         </div>
-        <div className={styles.matrix} role="table" aria-label="Paket özellik matrisi">
+        <div className={styles.matrixLarge} aria-label="Paket özellik matrisi" role="table">
           <div className={styles.matrixHeader} role="row">
             <span role="columnheader">Özellik</span>
             {PACKAGES.map((pkg) => (
@@ -135,6 +135,19 @@ export function Pricing() {
                 <span key={`${row.label}-${index}`} role="cell">
                   {value}
                 </span>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className={styles.matrixStack} aria-label="Paket özellik matrisi mobil">
+          {PACKAGES.map((pkg, pkgIndex) => (
+            <div key={pkg.id} className={styles.matrixCard}>
+              <div className={styles.matrixCardHeader}>{pkg.name}</div>
+              {MATRIX.map((row) => (
+                <div key={`${pkg.id}-${row.label}`} className={styles.matrixCardItem}>
+                  <span>{row.label}</span>
+                  <span>{row.values[pkgIndex]}</span>
+                </div>
               ))}
             </div>
           ))}
