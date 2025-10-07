@@ -1,4 +1,5 @@
 import Script from "next/script";
+import type { CSSProperties } from "react";
 import styles from "./Pricing.module.css";
 
 const PACKAGES = [
@@ -9,6 +10,8 @@ const PACKAGES = [
     description:
       "Temel vitrin, iki dil desteği ve WhatsApp entegrasyonuyla hızlı başlangıç.",
     cta: "Core ile başla",
+    accentStart: "#0a3d62",
+    accentEnd: "#17a2b8",
     features: [
       "Kurumsal otel sayfaları (TR/EN), odalar, galeri, hizmetler, konum",
       "Temel SEO, SSL, WhatsApp tıkla-yaz",
@@ -22,6 +25,8 @@ const PACKAGES = [
     description:
       "Dinamik fiyat tabloları ve yorum rozetleriyle satış kanıtınızı ön plana çıkarın.",
     cta: "Proof’a geç",
+    accentStart: "#17a2b8",
+    accentEnd: "#74d4e3",
     features: [
       "Core + dinamik oda/fiyat listesi (CMS/Sheet beslemeli)",
       "Misafir yorumları / puan rozetleri",
@@ -36,6 +41,8 @@ const PACKAGES = [
     description:
       "Online rezervasyon ve ödeme akışıyla doğrudan satışları güvenle yönetin.",
     cta: "Direct ile rezervasyon alın",
+    accentStart: "#f39c12",
+    accentEnd: "#ffd166",
     features: [
       "Proof + online rezervasyon akışı (iyzico/Stripe)",
       "İletişim/teklif formları, kupon/upsell alanları",
@@ -87,20 +94,28 @@ export function Pricing() {
               key={pkg.id}
               id={pkg.id}
               className={`${styles.card} ${pkg.highlighted ? styles.highlighted : ""}`}
+              style={
+                {
+                  "--card-accent-start": pkg.accentStart,
+                  "--card-accent-end": pkg.accentEnd,
+                } as CSSProperties
+              }
             >
-              <div className={styles.cardHeader}>
-                <h3>{pkg.name}</h3>
-                <p className={styles.price}>{pkg.price}</p>
+              <div className={styles.cardContent}>
+                <div className={styles.cardHeader}>
+                  <h3>{pkg.name}</h3>
+                  <p className={styles.price}>{pkg.price}</p>
+                </div>
+                <p className={styles.description}>{pkg.description}</p>
+                <ul className={styles.featureList}>
+                  {pkg.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <a className={styles.cta} href="#demo-form" data-package={pkg.name}>
+                  {pkg.cta}
+                </a>
               </div>
-              <p className={styles.description}>{pkg.description}</p>
-              <ul className={styles.featureList}>
-                {pkg.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <a className={styles.cta} href="#demo-form" data-package={pkg.name}>
-                {pkg.cta}
-              </a>
             </article>
           ))}
         </div>
