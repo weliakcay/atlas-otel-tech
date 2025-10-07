@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
 const TRUST_ITEMS = [
@@ -8,6 +11,65 @@ const TRUST_ITEMS = [
 ];
 
 export function Hero() {
+  const [motionEnabled, setMotionEnabled] = useState(true);
+  const [scrollOffset, setScrollOffset] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleMediaChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setMotionEnabled(!event.matches);
+    };
+
+    handleMediaChange(mediaQuery);
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleMediaChange);
+    } else {
+      mediaQuery.addListener(handleMediaChange);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", handleMediaChange);
+      } else {
+        mediaQuery.removeListener(handleMediaChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!motionEnabled || typeof window === "undefined") {
+      setScrollOffset(0);
+      return;
+    }
+
+    let ticking = false;
+
+    const updateOffset = () => {
+      setScrollOffset(Math.min(Math.max(window.scrollY, 0), 600));
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateOffset);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateOffset();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [motionEnabled]);
+
+  const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
+  const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
+
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.backgroundGradient} aria-hidden="true" />
@@ -42,51 +104,90 @@ export function Hero() {
           </ul>
         </div>
         <div className={styles.preview} aria-label="Otel sitesi ön izleme maketi">
-          <div className={styles.previewWindow}>
+          <div
+            className={styles.previewWindow}
+            style={
+              motionEnabled
+                ? {
+                    transform: `translateY(${frameTranslate}px) rotateX(${Math.min(
+                      scrollOffset * 0.01,
+                      5,
+                    )}deg)`,
+                  }
+                : undefined
+            }
+          >
             <div className={styles.previewToolbar}>
-              <span />
-              <span />
-              <span />
+              <span>Atlas</span>
+              <span>07:24</span>
             </div>
-            <div className={styles.previewContent}>
-              <div className={styles.previewHero}>
-                <div>
-                  <p>Akdeniz Suites</p>
-                  <h3>Deniz manzaralı konfor</h3>
+            <div className={styles.previewScreen}>
+              <div
+                className={styles.previewViewport}
+                style={motionEnabled ? { transform: `translateY(-${viewportTranslate}px)` } : undefined}
+              >
+                <div className={styles.previewHero}>
+                  <div>
+                    <p>Akdeniz Suites</p>
+                    <h3>Deniz manzaralı konfor</h3>
+                  </div>
+                  <div className={styles.previewBadge}>Rezervasyon Açık</div>
                 </div>
-                <div className={styles.previewBadge}>Rezervasyon Açık</div>
-              </div>
-              <div className={styles.previewStats}>
-                <div>
-                  <span>★★★★★</span>
-                  <p>Booking.com 9.2</p>
+                <div className={styles.previewGallery}>
+                  <div className={styles.previewImageLarge}>
+                    <span>Infinity Pool &amp; Beach</span>
+                  </div>
+                  <div className={styles.previewImageSmall}>
+                    <span>Akşam Yemekleri</span>
+                  </div>
                 </div>
-                <div>
-                  <span>24/7</span>
-                  <p>AI Concierge</p>
+                <div className={styles.previewStats}>
+                  <div>
+                    <span>★★★★★</span>
+                    <p>Booking.com 9.2</p>
+                  </div>
+                  <div>
+                    <span>24/7</span>
+                    <p>AI Concierge</p>
+                  </div>
+                  <div>
+                    <span>+18%</span>
+                    <p>Doğrudan satış</p>
+                  </div>
                 </div>
-                <div>
-                  <span>+18%</span>
-                  <p>Doğrudan satış</p>
+                <div className={styles.previewRooms}>
+                  <div className={styles.roomCard}>
+                    <div className={styles.roomTitle}>Deniz Manzaralı Deluxe</div>
+                    <p className={styles.roomMeta}>30 m² · Balkon · Kahvaltı dahil</p>
+                    <span className={styles.roomPrice}>3.450 TL</span>
+                  </div>
+                  <div className={styles.roomCard}>
+                    <div className={styles.roomTitle}>Aile Süit</div>
+                    <p className={styles.roomMeta}>45 m² · 2+1 · Ücretsiz iptal</p>
+                    <span className={styles.roomPrice}>4.250 TL</span>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.previewTimeline}>
-                <div>
-                  <p>Check-in</p>
-                  <span>14:00</span>
+                <div className={styles.previewTimeline}>
+                  <div>
+                    <p>Check-in</p>
+                    <span>14:00</span>
+                  </div>
+                  <div>
+                    <p>Check-out</p>
+                    <span>12:00</span>
+                  </div>
+                  <div>
+                    <p>Erken Rez.</p>
+                    <span>-15%</span>
+                  </div>
                 </div>
-                <div>
-                  <p>Check-out</p>
-                  <span>12:00</span>
+                <div className={styles.previewTestimonial}>
+                  “Atlas concierge 7/24 çok dilli yanıtla rezervasyon teyidi veriyor.”
                 </div>
-                <div>
-                  <p>Erken Rez.</p>
-                  <span>-15%</span>
+                <div className={styles.previewFooter}>
+                  <button type="button">Oda Seç</button>
+                  <button type="button">WhatsApp</button>
                 </div>
-              </div>
-              <div className={styles.previewFooter}>
-                <button type="button">Oda Seç</button>
-                <button type="button">WhatsApp</button>
               </div>
             </div>
           </div>

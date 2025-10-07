@@ -135,36 +135,79 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1200px;
 }
 
 .previewWindow {
-  width: min(400px, 100%);
-  background: var(--color-surface);
+  position: relative;
+  width: min(420px, 100%);
+  padding: 18px;
+  border-radius: 36px;
+  background: linear-gradient(145deg, rgba(10, 61, 98, 0.18), rgba(23, 162, 184, 0.22));
+  box-shadow: 0 40px 90px rgba(10, 61, 98, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  will-change: transform;
+}
+
+.previewWindow::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
   border-radius: 28px;
-  box-shadow: 0 30px 60px rgba(10, 61, 98, 0.25);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
 }
 
 .previewToolbar {
+  position: relative;
+  z-index: 2;
   display: flex;
-  gap: 8px;
-  padding: 16px;
-  background: linear-gradient(90deg, rgba(10, 61, 98, 0.5), rgba(10, 61, 98, 0.2));
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
 }
 
 .previewToolbar span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.previewContent {
-  padding: 24px;
+.previewToolbar span::before,
+.previewToolbar span::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.previewToolbar span::after {
+  opacity: 0.4;
+}
+
+.previewScreen {
+  position: relative;
+  z-index: 1;
+  border-radius: 26px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(10, 61, 98, 0.06), rgba(242, 245, 247, 0.85));
+  border: 1px solid rgba(10, 61, 98, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.previewViewport {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
+  padding: 26px;
+  min-height: 540px;
+  will-change: transform;
+  transition: transform 160ms ease-out;
 }
 
 .previewHero {
@@ -172,10 +215,11 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
-  background: linear-gradient(140deg, #0a3d62, #17a2b8);
+  background: linear-gradient(150deg, #0a3d62 20%, #17a2b8 90%);
   color: #fff;
   padding: 24px;
   border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(10, 61, 98, 0.3);
 }
 
 .previewHero h3 {
@@ -190,6 +234,50 @@
   font-weight: 600;
 }
 
+.previewGallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.previewImageLarge,
+.previewImageSmall {
+  border-radius: 18px;
+  color: #fff;
+  font-weight: 600;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.previewImageLarge::after,
+.previewImageSmall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+.previewImageLarge span,
+.previewImageSmall span {
+  position: relative;
+  z-index: 1;
+}
+
+.previewImageLarge {
+  background-image: linear-gradient(140deg, rgba(23, 162, 184, 0.7), rgba(10, 61, 98, 0.7));
+}
+
+.previewImageSmall {
+  background-image: linear-gradient(140deg, rgba(10, 61, 98, 0.7), rgba(23, 162, 184, 0.7));
+}
+
 .previewStats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -197,10 +285,11 @@
 }
 
 .previewStats div {
-  background: var(--color-surface-alt);
+  background: rgba(10, 61, 98, 0.08);
   padding: 16px;
   border-radius: 16px;
   text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .previewStats span {
@@ -208,6 +297,39 @@
   font-family: var(--font-heading);
   font-weight: 700;
   color: var(--color-primary);
+}
+
+.previewRooms {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.roomCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(10, 61, 98, 0.08);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roomTitle {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.roomMeta {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.roomPrice {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-family: var(--font-heading);
 }
 
 .previewTimeline {
@@ -218,6 +340,7 @@
   padding: 16px;
   border-radius: 18px;
   border: 1px solid rgba(10, 61, 98, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .previewTimeline div {
@@ -228,6 +351,16 @@
   font-family: var(--font-heading);
   color: var(--color-primary);
   font-weight: 700;
+}
+
+.previewTestimonial {
+  background: rgba(10, 61, 98, 0.08);
+  border-left: 4px solid var(--color-accent);
+  padding: 16px 18px;
+  border-radius: 16px;
+  color: var(--color-primary);
+  font-style: italic;
+  box-shadow: var(--shadow-soft);
 }
 
 .previewFooter {
@@ -298,11 +431,7 @@
   }
 
   .previewToolbar {
-    padding: 12px;
-  }
-
-  .previewContent {
-    padding: 18px;
+    padding: 0 12px 14px;
   }
 
   .previewHero {
@@ -310,7 +439,19 @@
     gap: 12px;
   }
 
+  .previewViewport {
+    padding: 22px;
+  }
+
+  .previewGallery {
+    grid-template-columns: 1fr;
+  }
+
   .previewStats {
+    grid-template-columns: 1fr;
+  }
+
+  .previewRooms {
     grid-template-columns: 1fr;
   }
 
