@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./TemplatesGallery.module.css";
 
 const FILTERS = [
@@ -21,6 +22,8 @@ const TEMPLATES = [
     name: "Akdeniz Butik",
     description: "Açık, ferah, taş-ahşap doku; butik/konuk evi için ideal.",
     categories: ["Açık Tema", "Butik"],
+    previewImage:
+      "https://images.unsplash.com/photo-1512914890250-353c97c9e134?auto=format&fit=crop&w=1600&q=90",
   },
   {
     id: "sehir-is-oteli",
@@ -56,6 +59,8 @@ const TEMPLATES = [
 
 export function TemplatesGallery() {
   const [activeFilter, setActiveFilter] = useState<string>("Tümü");
+  const [activeTemplate, setActiveTemplate] =
+    useState<(typeof TEMPLATES)[number] | null>(null);
 
   const filteredTemplates = useMemo(() => {
     if (activeFilter === "Tümü") {
@@ -65,6 +70,33 @@ export function TemplatesGallery() {
       template.categories.some((category) => category === activeFilter),
     );
   }, [activeFilter]);
+
+  useEffect(() => {
+    if (!activeTemplate) {
+      return;
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveTemplate(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activeTemplate]);
+
+  const handleTemplateOpen = (template: (typeof TEMPLATES)[number]) => {
+    setActiveTemplate(template);
+  };
+
+  const handleTemplateKeyDown = (
+    event: React.KeyboardEvent<HTMLElement>,
+    template: (typeof TEMPLATES)[number],
+  ) => {
+    if (template.previewImage && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      handleTemplateOpen(template);
+    }
+  };
 
   return (
     <section
@@ -96,7 +128,25 @@ export function TemplatesGallery() {
         </div>
         <div className={styles.grid}>
           {filteredTemplates.map((template) => (
-            <article key={template.id} className={styles.card}>
+            <article
+              key={template.id}
+              className={`${styles.card} ${
+                template.previewImage ? styles.clickableCard : ""
+              }`}
+              onClick={
+                template.previewImage
+                  ? () => handleTemplateOpen(template)
+                  : undefined
+              }
+              onKeyDown={(event) => handleTemplateKeyDown(event, template)}
+              tabIndex={template.previewImage ? 0 : undefined}
+              role={template.previewImage ? "button" : "article"}
+              aria-label={
+                template.previewImage
+                  ? `${template.name} önizlemesini aç`
+                  : undefined
+              }
+            >
               <div className={styles.cardHeader}>
                 <div className={styles.badges}>
                   {template.categories.map((category) => (
@@ -107,9 +157,25 @@ export function TemplatesGallery() {
                 <p>{template.description}</p>
               </div>
               <div className={styles.actions}>
-                <Link href={`/tasarim-modelleri#${template.id}`} className={styles.secondaryCta}>
-                  Önizle
-                </Link>
+                {template.previewImage ? (
+                  <button
+                    type="button"
+                    className={styles.secondaryCta}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleTemplateOpen(template);
+                    }}
+                  >
+                    Önizle
+                  </button>
+                ) : (
+                  <Link
+                    href={`/tasarim-modelleri#${template.id}`}
+                    className={styles.secondaryCta}
+                  >
+                    Önizle
+                  </Link>
+                )}
                 <a
                   className={styles.primaryCta}
                   href={`#demo-form`}
@@ -122,6 +188,43 @@ export function TemplatesGallery() {
           ))}
         </div>
       </div>
+      {activeTemplate?.previewImage && (
+        <div
+          className={styles.modalOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="template-preview-heading"
+        >
+          <div className={styles.modalContent}>
+            <header className={styles.modalHeader}>
+              <h3 id="template-preview-heading">{activeTemplate.name}</h3>
+              <button
+                type="button"
+                className={styles.modalClose}
+                onClick={() => setActiveTemplate(null)}
+                aria-label="Önizlemeyi kapat"
+              >
+                ×
+              </button>
+            </header>
+            <div className={styles.modalBody}>
+              <Image
+                src={activeTemplate.previewImage}
+                alt={`${activeTemplate.name} tema önizlemesi`}
+                width={1440}
+                height={960}
+                priority
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            className={styles.modalBackdrop}
+            onClick={() => setActiveTemplate(null)}
+            aria-hidden="true"
+          />
+        </div>
+      )}
     </section>
   );
 }

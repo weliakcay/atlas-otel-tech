@@ -12,22 +12,22 @@ const TRUST_ITEMS = [
 
 const HERO_VIDEOS = [
   {
-    id: "pool-sunrise",
-    src: "https://cdn.coverr.co/videos/coverr-sunrise-at-the-hotel-pool-5170/1080p.mp4",
+    id: "resort-drone",
+    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/1080p.mp4",
     poster:
-      "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
   },
   {
-    id: "beach-deck",
-    src: "https://cdn.coverr.co/videos/coverr-tropical-hotel-pool-9722/1080p.mp4",
+    id: "infinity-pool",
+    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/1080p.mp4",
     poster:
-      "https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
   },
   {
-    id: "city-night",
-    src: "https://cdn.coverr.co/videos/coverr-city-hotel-room-with-night-view-7201/1080p.mp4",
+    id: "marina-sunset",
+    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/1080p.mp4",
     poster:
-      "https://images.pexels.com/photos/261112/pexels-photo-261112.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
   },
 ];
 
