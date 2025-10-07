@@ -32,7 +32,7 @@ const TEMPLATES = [
     description: "Gri/kontrast, sade formlar; hızlı erişim ve toplantı odaklı.",
     categories: ["Minimal", "Açık Tema"],
     previewImage:
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/42873780/file/original-7cd57707fdaa18688e4997ff89057540.jpg?resize=1024x7413&vertical=center",
     accentColor: "#0A3D62",
   },
   {
@@ -41,7 +41,7 @@ const TEMPLATES = [
     description: "Geniş görsel hero, spa/aktivite blokları; tatil köyleri.",
     categories: ["Görsel Ağırlıklı", "Aile"],
     previewImage:
-      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/43167338/file/original-87636043bfa822b737607d54d5a42150.jpg?resize=1024x768&vertical=center",
     accentColor: "#F39C12",
   },
   {
@@ -50,7 +50,7 @@ const TEMPLATES = [
     description: "Run-of-house ve yatakhane planları; genç, hızlı.",
     categories: ["Minimal"],
     previewImage:
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/44537386/file/9463f93e0767ffee518d71d8ba6e578d.png?resize=752x566&vertical=center",
     accentColor: "#6C63FF",
   },
   {
@@ -59,7 +59,7 @@ const TEMPLATES = [
     description: "Koyu tema, doğa görselleri; sezon ve hava durumuna duyarlı banner.",
     categories: ["Koyu Tema", "Adults Only"],
     previewImage:
-      "https://images.unsplash.com/photo-1511117833895-2e62c12c2d05?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/34755859/file/original-0f4a00ebd57198673ce7ae660ff723e4.png?resize=1024x754&vertical=center",
     accentColor: "#2C3E50",
   },
   {
@@ -68,7 +68,7 @@ const TEMPLATES = [
     description: "Deniz teması, oda+tekne paketleri; premium algı.",
     categories: ["Görsel Ağırlıklı", "Butik"],
     previewImage:
-      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=90",
+      "https://cdn.dribbble.com/userupload/15411637/file/original-fd39d81a5396e87e0a02eea22c2df89f.jpg?resize=1024x768&vertical=center",
     accentColor: "#1ABC9C",
   },
 ];
