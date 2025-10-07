@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 
 const TRUST_ITEMS = [
@@ -13,19 +13,19 @@ const TRUST_ITEMS = [
 const HERO_VIDEOS = [
   {
     id: "resort-drone",
-    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/1080p.mp4",
+    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/720p.mp4",
     poster:
       "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
   },
   {
     id: "infinity-pool",
-    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/1080p.mp4",
+    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/720p.mp4",
     poster:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
   },
   {
     id: "marina-sunset",
-    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/1080p.mp4",
+    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/720p.mp4",
     poster:
       "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
   },
@@ -35,6 +35,9 @@ export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [activeVideo, setActiveVideo] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -102,11 +105,62 @@ export function Hero() {
     return () => window.clearInterval(interval);
   }, [motionEnabled]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const element = heroRef.current;
+    if (!element) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) {
+        return;
+      }
+      if (motionEnabled && isInView && index === activeVideo) {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // ignore autoplay restrictions
+          });
+        }
+      } else {
+        video.pause();
+        const fastSeek = (video as HTMLVideoElement & { fastSeek?: (time: number) => void })
+          .fastSeek;
+        if (typeof fastSeek === "function") {
+          try {
+            fastSeek.call(video, 0);
+            return;
+          } catch {
+            // ignore and fallback
+          }
+        }
+        video.currentTime = 0;
+      }
+    });
+  }, [motionEnabled, isInView, activeVideo]);
+
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
   const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
-    <section id="hero" className={styles.hero}>
+    <section id="hero" className={styles.hero} ref={heroRef}>
       <div className={styles.videoBackground} aria-hidden="true">
         {HERO_VIDEOS.map((video, index) => (
           <video
@@ -117,8 +171,12 @@ export function Hero() {
             muted
             playsInline
             loop
-            preload={motionEnabled ? "auto" : "metadata"}
-            autoPlay={motionEnabled}
+            preload="metadata"
+            ref={(element) => {
+              if (element) {
+                videoRefs.current[index] = element;
+              }
+            }}
           />
         ))}
         <div className={styles.videoOverlay} />
