@@ -1,6 +1,6 @@
 .section {
-  padding: 90px 28px;
-  background: linear-gradient(180deg, rgba(10, 61, 98, 0.08), rgba(242, 245, 247, 0.6));
+  padding: 96px 28px;
+  background: linear-gradient(180deg, rgba(244, 230, 205, 0.28), rgba(246, 241, 232, 0.92));
 }
 
 .inner {
@@ -23,11 +23,14 @@
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  color: var(--color-accent);
-  background: rgba(23, 162, 184, 0.12);
-  padding: 6px 14px;
+  color: var(--color-primary);
+  background: rgba(180, 138, 60, 0.18);
+  padding: 6px 16px;
   border-radius: 999px;
   width: fit-content;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
 }
 
 .header h2 {
@@ -38,6 +41,7 @@
 
 .header p {
   color: var(--color-muted);
+  line-height: 1.8;
 }
 
 .grid {
@@ -103,12 +107,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 34px;
+  padding: 36px 34px;
   border-radius: calc(var(--radius-lg) - 4px);
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.95);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    0 18px 40px rgba(10, 33, 56, 0.15);
+    0 20px 42px rgba(84, 65, 40, 0.16);
   backdrop-filter: blur(6px);
 }
 
@@ -125,7 +129,7 @@
 .highlighted .cardContent {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 24px 50px rgba(23, 162, 184, 0.25);
+    0 28px 52px rgba(180, 138, 60, 0.24);
 }
 
 .cardHeader {
@@ -143,9 +147,10 @@
 
 .price {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--color-accent);
-  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 .description {
@@ -184,8 +189,8 @@
   align-self: flex-start;
   border-radius: 999px;
   background: var(--card-accent-start, var(--color-primary));
-  color: #fff;
-  padding: 12px 22px;
+  color: #fffdf6;
+  padding: 12px 26px;
   font-weight: 600;
   box-shadow: var(--shadow-soft);
   transition: transform var(--transition-base), box-shadow var(--transition-base),
@@ -205,9 +210,9 @@
 .matrix,
 .matrixLarge {
   position: relative;
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.94);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(10, 61, 98, 0.1);
+  border: 1px solid rgba(180, 138, 60, 0.18);
   overflow: hidden;
 }
 
@@ -220,13 +225,13 @@
 }
 
 .matrixHeader {
-  background: rgba(10, 61, 98, 0.08);
+  background: rgba(180, 138, 60, 0.12);
   font-weight: 600;
   color: var(--color-primary);
 }
 
 .matrixRow:nth-of-type(even) {
-  background: rgba(10, 61, 98, 0.04);
+  background: rgba(244, 230, 205, 0.22);
 }
 
 .matrixRow span {
@@ -245,19 +250,20 @@
 }
 
 .matrixCard {
-  border-radius: 18px;
-  border: 1px solid rgba(10, 61, 98, 0.1);
-  background: rgba(255, 255, 255, 0.96);
-  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(180, 138, 60, 0.22);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 20px;
   display: grid;
-  gap: 12px;
-  box-shadow: var(--shadow-soft);
+  gap: 14px;
+  box-shadow: 0 16px 34px rgba(84, 65, 40, 0.12);
 }
 
 .matrixCardHeader {
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-primary);
   font-family: var(--font-heading);
+  letter-spacing: 0.06em;
 }
 
 .matrixCardItem {
@@ -275,15 +281,16 @@
 
 .maintenance {
   text-align: center;
-  background: rgba(23, 162, 184, 0.12);
+  background: rgba(244, 226, 195, 0.45);
   color: var(--color-primary);
-  padding: 18px;
+  padding: 20px;
   border-radius: var(--radius-md);
   font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 .maintenance strong {
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 @media (max-width: 960px) {

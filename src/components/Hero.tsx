@@ -101,7 +101,6 @@ export function Hero() {
   }, [motionEnabled]);
 
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
-  const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
     <section id="hero" className={styles.hero}>
@@ -124,24 +123,37 @@ export function Hero() {
         <div className={styles.imageOverlay} />
       </div>
       <div className={styles.inner}>
-        <div className={styles.copy}>
-          <p className={styles.tagline}>Atlas Otel Tech</p>
-          <h1>Siteniz yapay zeka teknolojisine hazır mı?</h1>
-          <p className={styles.subtitle}>
-            Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve
-            dönüşüm odaklı.
-          </p>
-          <div className={styles.ctas}>
-            <a className={styles.primaryCta} href="#demo-form">
+        <div className={styles.heroShell}>
+          <div className={styles.heroHeader}>
+            <p className={styles.tagline}>Atlas Otel Tech</p>
+            <h1>Komisyon değil, rezervasyon kazanın.</h1>
+            <p className={styles.subtitle}>
+              Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve dönüşüm odaklı.
+            </p>
+          </div>
+          <div className={styles.bookingBar}>
+            <div>
+              <span>Lokasyon</span>
+              <strong>Tüm Oteller</strong>
+            </div>
+            <div>
+              <span>Yayın Süresi</span>
+              <strong>7 Gün</strong>
+            </div>
+            <div>
+              <span>Konuk Deneyimi</span>
+              <strong>AI Concierge</strong>
+            </div>
+            <a className={styles.bookingButton} href="#demo-form">
               Demo İsteyin
             </a>
+          </div>
+          <div className={styles.heroActions}>
             <a className={styles.secondaryCta} href="#ai-check">
               Siteniz AI-hazır mı? 2 dakikada öğrenin
             </a>
+            <p className={styles.microcopy}>Daha az komisyon, daha çok tekrar konuk.</p>
           </div>
-          <p className={styles.microcopy}>
-            Daha az komisyon, daha çok tekrar konuk.
-          </p>
           <ul className={styles.trustList}>
             {TRUST_ITEMS.map((item) => (
               <li key={item.label}>
@@ -152,95 +164,6 @@ export function Hero() {
               </li>
             ))}
           </ul>
-        </div>
-        <div className={styles.preview} aria-label="Otel sitesi ön izleme maketi">
-          <div
-            className={styles.previewWindow}
-            style={
-              motionEnabled
-                ? {
-                    transform: `translateY(${frameTranslate}px) rotateX(${Math.min(
-                      scrollOffset * 0.01,
-                      5,
-                    )}deg)`,
-                  }
-                : undefined
-            }
-          >
-            <div className={styles.previewToolbar}>
-              <span>Atlas</span>
-              <span>07:24</span>
-            </div>
-            <div className={styles.previewScreen}>
-              <div
-                className={styles.previewViewport}
-                style={motionEnabled ? { transform: `translateY(-${viewportTranslate}px)` } : undefined}
-              >
-                <div className={styles.previewHero}>
-                  <div>
-                    <p>Akdeniz Suites</p>
-                    <h3>Deniz manzaralı konfor</h3>
-                  </div>
-                  <div className={styles.previewBadge}>Rezervasyon Açık</div>
-                </div>
-                <div className={styles.previewGallery}>
-                  <div className={styles.previewImageLarge}>
-                    <span>Infinity Pool &amp; Beach</span>
-                  </div>
-                  <div className={styles.previewImageSmall}>
-                    <span>Akşam Yemekleri</span>
-                  </div>
-                </div>
-                <div className={styles.previewStats}>
-                  <div>
-                    <span>★★★★★</span>
-                    <p>Booking.com 9.2</p>
-                  </div>
-                  <div>
-                    <span>24/7</span>
-                    <p>AI Concierge</p>
-                  </div>
-                  <div>
-                    <span>+18%</span>
-                    <p>Doğrudan satış</p>
-                  </div>
-                </div>
-                <div className={styles.previewRooms}>
-                  <div className={styles.roomCard}>
-                    <div className={styles.roomTitle}>Deniz Manzaralı Deluxe</div>
-                    <p className={styles.roomMeta}>30 m² · Balkon · Kahvaltı dahil</p>
-                    <span className={styles.roomPrice}>3.450 TL</span>
-                  </div>
-                  <div className={styles.roomCard}>
-                    <div className={styles.roomTitle}>Aile Süit</div>
-                    <p className={styles.roomMeta}>45 m² · 2+1 · Ücretsiz iptal</p>
-                    <span className={styles.roomPrice}>4.250 TL</span>
-                  </div>
-                </div>
-                <div className={styles.previewTimeline}>
-                  <div>
-                    <p>Check-in</p>
-                    <span>14:00</span>
-                  </div>
-                  <div>
-                    <p>Check-out</p>
-                    <span>12:00</span>
-                  </div>
-                  <div>
-                    <p>Erken Rez.</p>
-                    <span>-15%</span>
-                  </div>
-                </div>
-                <div className={styles.previewTestimonial}>
-                  “Atlas concierge 7/24 çok dilli yanıtla rezervasyon teyidi veriyor.”
-                </div>
-                <div className={styles.previewFooter}>
-                  <button type="button">Oda Seç</button>
-                  <button type="button">WhatsApp</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
