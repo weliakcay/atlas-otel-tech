@@ -1,16 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
 import styles from "./Footer.module.css";
 
 const FOOTER_LINKS = [
   {
     title: "Menü",
     items: [
-      { label: "Ana Sayfa", href: "/#hero" },
-      { label: "Çözümler", href: "/#solutions" },
-      { label: "Tasarım Modelleri", href: "/#templates" },
-      { label: "Fiyatlar", href: "/#pricing" },
-      { label: "İletişim", href: "/#contact" },
+      { label: "Ana Sayfa", href: "#hero" },
+      { label: "Çözümler", href: "#solutions" },
+      { label: "Tasarım Modelleri", href: "#templates" },
+      { label: "Fiyatlar", href: "#pricing" },
+      { label: "İletişim", href: "#contact" },
     ],
   },
   {
@@ -37,16 +35,7 @@ export function Footer() {
     <footer className={styles.footer} aria-labelledby="footer-heading">
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <Link href="/#hero" className={styles.logo} aria-label="Atlas Otel Tech">
-            <Image
-              src="/atlas-logo.png"
-              alt="Atlas Otel Tech"
-              width={40}
-              height={40}
-              className={styles.logoImage}
-            />
-            <span>Atlas Otel Tech</span>
-          </Link>
+          <span className={styles.logo} aria-label="Atlas Otel Tech">Atlas Otel Tech</span>
           <p>Komisyon değil, rezervasyon kazanın.</p>
           <p className={styles.muted}>
             Atlas Otel Teknoloji A.Ş. · Vergi No: 1234567890 · Maslak Mah. 42. Cadde No:12 Sarıyer /
@@ -65,7 +54,7 @@ export function Footer() {
               <ul>
                 {group.items.map((item) => (
                   <li key={item.label}>
-                    <Link href={item.href}>{item.label}</Link>
+                    <a href={item.href}>{item.label}</a>
                   </li>
                 ))}
               </ul>

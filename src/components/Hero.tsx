@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
@@ -11,28 +10,31 @@ const TRUST_ITEMS = [
   { label: "KVKK" },
 ];
 
-const HERO_IMAGES = [
+const HERO_VIDEOS = [
   {
-    id: "resort",
-    src: "/hero-1.jpg",
-    alt: "Deniz kenarında resort otel",
+    id: "resort-drone",
+    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/1080p.mp4",
+    poster:
+      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
   },
   {
-    id: "pool",
-    src: "/hero-2.jpg",
-    alt: "Şehir otel lobisi",
+    id: "infinity-pool",
+    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/1080p.mp4",
+    poster:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
   },
   {
-    id: "marina",
-    src: "/hero-3.jpg",
-    alt: "Marina manzaralı otel odası",
+    id: "marina-sunset",
+    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/1080p.mp4",
+    poster:
+      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
   },
 ];
 
 export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -88,72 +90,59 @@ export function Hero() {
   }, [motionEnabled]);
 
   useEffect(() => {
-    if (!motionEnabled || HERO_IMAGES.length <= 1) {
-      setActiveImage(0);
+    if (!motionEnabled || HERO_VIDEOS.length <= 1) {
+      setActiveVideo(0);
       return;
     }
 
     const interval = window.setInterval(() => {
-      setActiveImage((current) => (current + 1) % HERO_IMAGES.length);
-    }, 10000);
+      setActiveVideo((current) => (current + 1) % HERO_VIDEOS.length);
+    }, 14000);
 
     return () => window.clearInterval(interval);
   }, [motionEnabled]);
 
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
+  const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.imageBackdrop} aria-hidden="true">
-        {HERO_IMAGES.map((image, index) => (
-          <div
-            key={image.id}
-            className={`${styles.heroImage} ${index === activeImage ? styles.imageActive : ""}`}
-            style={{ transform: `translateY(${frameTranslate / 2}px)` }}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="100vw"
-              priority={index === 0}
-            />
-          </div>
+      <div className={styles.videoBackground} aria-hidden="true">
+        {HERO_VIDEOS.map((video, index) => (
+          <video
+            key={video.id}
+            className={`${styles.backgroundVideo} ${index === activeVideo ? styles.activeVideo : ""}`}
+            src={video.src}
+            poster={video.poster}
+            muted
+            playsInline
+            loop
+            preload={motionEnabled ? "auto" : "metadata"}
+            autoPlay={motionEnabled}
+          />
         ))}
-        <div className={styles.imageOverlay} />
+        <div className={styles.videoOverlay} />
       </div>
+      <div className={styles.backgroundGradient} aria-hidden="true" />
       <div className={styles.inner}>
-        <div className={styles.heroShell}>
-          <div className={styles.heroHeader}>
-            <p className={styles.tagline}>Atlas Otel Tech</p>
-            <h1>Komisyon değil, rezervasyon kazanın.</h1>
-            <p className={styles.subtitle}>
-              Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve dönüşüm odaklı.
-            </p>
-          </div>
-          <div className={styles.bookingBar}>
-            <div>
-              <span>Lokasyon</span>
-              <strong>Tüm Oteller</strong>
-            </div>
-            <div>
-              <span>Yayın Süresi</span>
-              <strong>7 Gün</strong>
-            </div>
-            <div>
-              <span>Konuk Deneyimi</span>
-              <strong>AI Concierge</strong>
-            </div>
-            <a className={styles.bookingButton} href="#demo-form">
+        <div className={styles.copy}>
+          <p className={styles.tagline}>Atlas Otel Tech</p>
+          <h1>Siteniz yapay zeka teknolojisine hazır mı?</h1>
+          <p className={styles.subtitle}>
+            Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve
+            dönüşüm odaklı.
+          </p>
+          <div className={styles.ctas}>
+            <a className={styles.primaryCta} href="#demo-form">
               Demo İsteyin
             </a>
-          </div>
-          <div className={styles.heroActions}>
             <a className={styles.secondaryCta} href="#ai-check">
               Siteniz AI-hazır mı? 2 dakikada öğrenin
             </a>
-            <p className={styles.microcopy}>Daha az komisyon, daha çok tekrar konuk.</p>
           </div>
+          <p className={styles.microcopy}>
+            Daha az komisyon, daha çok tekrar konuk.
+          </p>
           <ul className={styles.trustList}>
             {TRUST_ITEMS.map((item) => (
               <li key={item.label}>
@@ -164,6 +153,95 @@ export function Hero() {
               </li>
             ))}
           </ul>
+        </div>
+        <div className={styles.preview} aria-label="Otel sitesi ön izleme maketi">
+          <div
+            className={styles.previewWindow}
+            style={
+              motionEnabled
+                ? {
+                    transform: `translateY(${frameTranslate}px) rotateX(${Math.min(
+                      scrollOffset * 0.01,
+                      5,
+                    )}deg)`,
+                  }
+                : undefined
+            }
+          >
+            <div className={styles.previewToolbar}>
+              <span>Atlas</span>
+              <span>07:24</span>
+            </div>
+            <div className={styles.previewScreen}>
+              <div
+                className={styles.previewViewport}
+                style={motionEnabled ? { transform: `translateY(-${viewportTranslate}px)` } : undefined}
+              >
+                <div className={styles.previewHero}>
+                  <div>
+                    <p>Akdeniz Suites</p>
+                    <h3>Deniz manzaralı konfor</h3>
+                  </div>
+                  <div className={styles.previewBadge}>Rezervasyon Açık</div>
+                </div>
+                <div className={styles.previewGallery}>
+                  <div className={styles.previewImageLarge}>
+                    <span>Infinity Pool &amp; Beach</span>
+                  </div>
+                  <div className={styles.previewImageSmall}>
+                    <span>Akşam Yemekleri</span>
+                  </div>
+                </div>
+                <div className={styles.previewStats}>
+                  <div>
+                    <span>★★★★★</span>
+                    <p>Booking.com 9.2</p>
+                  </div>
+                  <div>
+                    <span>24/7</span>
+                    <p>AI Concierge</p>
+                  </div>
+                  <div>
+                    <span>+18%</span>
+                    <p>Doğrudan satış</p>
+                  </div>
+                </div>
+                <div className={styles.previewRooms}>
+                  <div className={styles.roomCard}>
+                    <div className={styles.roomTitle}>Deniz Manzaralı Deluxe</div>
+                    <p className={styles.roomMeta}>30 m² · Balkon · Kahvaltı dahil</p>
+                    <span className={styles.roomPrice}>3.450 TL</span>
+                  </div>
+                  <div className={styles.roomCard}>
+                    <div className={styles.roomTitle}>Aile Süit</div>
+                    <p className={styles.roomMeta}>45 m² · 2+1 · Ücretsiz iptal</p>
+                    <span className={styles.roomPrice}>4.250 TL</span>
+                  </div>
+                </div>
+                <div className={styles.previewTimeline}>
+                  <div>
+                    <p>Check-in</p>
+                    <span>14:00</span>
+                  </div>
+                  <div>
+                    <p>Check-out</p>
+                    <span>12:00</span>
+                  </div>
+                  <div>
+                    <p>Erken Rez.</p>
+                    <span>-15%</span>
+                  </div>
+                </div>
+                <div className={styles.previewTestimonial}>
+                  “Atlas concierge 7/24 çok dilli yanıtla rezervasyon teyidi veriyor.”
+                </div>
+                <div className={styles.previewFooter}>
+                  <button type="button">Oda Seç</button>
+                  <button type="button">WhatsApp</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

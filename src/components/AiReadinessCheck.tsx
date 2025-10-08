@@ -8,35 +8,35 @@ type QuestionAnswer = "evet" | "hayir" | "";
 const QUESTIONS = [
   {
     id: "schemaHotel",
-    text: "Google’da arandığınızda otelinizin adı, adresi ve iletişim bilgileri doğru görünüyor mu?",
+    text: "Otel sayfalarınızda schema.org/Hotel işaretlemesi var mı?",
   },
   {
     id: "roomJsonLd",
-    text: "Oda tiplerinizi ve özelliklerini sitenizde net başlıklar ve görsellerle anlatıyor musunuz?",
+    text: "Oda tipleri JSON-LD ile tanımlı mı?",
   },
   {
     id: "cwv",
-    text: "Siteniz hem telefonda hem bilgisayarda birkaç saniye içinde açılıyor mu?",
+    text: "Core Web Vitals (LCP, CLS, INP) yeşil bölgede mi?",
   },
   {
     id: "hreflang",
-    text: "Birden fazla dil sunuyorsanız dil menüsü ziyaretçiyi doğru sayfaya götürüyor mu?",
+    text: "Çok dilli sayfalarda hreflang etiketleri doğru mu?",
   },
   {
     id: "whatsapp",
-    text: "Ziyaretçiler tek tıkla arama veya WhatsApp üzerinden size ulaşabiliyor mu?",
+    text: "WhatsApp/wa.me kısa yol ve tel: linkleri mevcut mu?",
   },
   {
     id: "prices",
-    text: "Oda fiyatlarını tablo ya da anlaşılır bir liste halinde paylaşıyor musunuz?",
+    text: "Fiyat verisi makinece çıkarılabilir bloklarda mı (tablo/list)?",
   },
   {
     id: "faq",
-    text: "Misafirlerinizin sık sorduğu sorular için sitenizde kısa cevaplar var mı?",
+    text: "SSS bölümü var ve FAQPage şemasıyla işaretli mi?",
   },
   {
     id: "forms",
-    text: "İletişim veya rezervasyon formlarınızda KVKK onayı ve spam koruması bulunuyor mu?",
+    text: "Formlar (iletişim/teklif) spam korumalı ve zorunlu KVKK onaylı mı?",
   },
 ];
 
