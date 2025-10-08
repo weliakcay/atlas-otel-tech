@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Atlas Otel Tech — 7 Günde AI-Hazır Otel Web Sitesi & Rezervasyon",
   description:
     "Oteliniz için hızlı, çok dilli ve AI-uyumlu web. Fiyat/yorum modülleri, online rezervasyon ve HotelAIassistant tabanlı concierge. 7 günde yayına alıyoruz.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://atlasoteltech.com"),
   icons: {
     icon: "/atlas-logo.png",
     shortcut: "/atlas-logo.png",
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     title: "Atlas Otel Tech",
     description:
       "Komisyon değil, rezervasyon kazanın. Atlas Otel Tech ile 7 günde AI-hazır, hızlı ve dönüşüm odaklı otel siteleri.",
-    url: "https://example.com",
+    url: "https://atlasoteltech.com",
     siteName: "Atlas Otel Tech",
     locale: "tr_TR",
     type: "website",
     images: [
       {
-        url: "https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png",
+        url: "/atlas-logo.png",
         width: 1200,
         height: 630,
         alt: "Atlas Otel Tech Logo",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "Atlas Otel Tech",
     description:
       "7 günde AI-hazır otel web sitesi ve rezervasyon çözümü. HotelAIassistant entegrasyonu ile concierge deneyimi.",
-    images: ["https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png"],
+    images: ["/atlas-logo.png"],
   },
 };
 
@@ -66,8 +66,8 @@ export default function RootLayout({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Atlas Otel Tech",
-          url: "https://example.com",
-          logo: "https://i.ibb.co/jPd3nWN/atlas-otel-tech-logo.png",
+          url: "https://atlasoteltech.com",
+          logo: "https://i.ibb.co/jPd3nW0t/atlas-otel-tech-logo.png",
           sameAs: ["https://www.linkedin.com/company/atlas"],
         })}
       </Script>
