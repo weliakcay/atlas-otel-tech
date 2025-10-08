@@ -14,17 +14,17 @@ const TRUST_ITEMS = [
 const HERO_IMAGES = [
   {
     id: "resort",
-    src: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=75",
+    src: "/hero-1.jpg",
     alt: "Deniz kenarında resort otel",
   },
   {
     id: "pool",
-    src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=75",
-    alt: "Infinity havuzu",
+    src: "/hero-2.jpg",
+    alt: "Şehir otel lobisi",
   },
   {
     id: "marina",
-    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=75",
+    src: "/hero-3.jpg",
     alt: "Marina manzaralı otel odası",
   },
 ];
