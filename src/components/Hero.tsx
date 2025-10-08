@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
 const TRUST_ITEMS = [
@@ -10,34 +11,28 @@ const TRUST_ITEMS = [
   { label: "KVKK" },
 ];
 
-const HERO_VIDEOS = [
+const HERO_IMAGES = [
   {
-    id: "resort-drone",
-    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/720p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
+    id: "resort",
+    src: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=75",
+    alt: "Deniz kenarında resort otel",
   },
   {
-    id: "infinity-pool",
-    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/720p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
+    id: "pool",
+    src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=75",
+    alt: "Infinity havuzu",
   },
   {
-    id: "marina-sunset",
-    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/720p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
+    id: "marina",
+    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=75",
+    alt: "Marina manzaralı otel odası",
   },
 ];
 
 export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
-  const [activeVideo, setActiveVideo] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const heroRef = useRef<HTMLElement | null>(null);
-  const videoRefs = useRef<HTMLVideoElement[]>([]);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -93,95 +88,41 @@ export function Hero() {
   }, [motionEnabled]);
 
   useEffect(() => {
-    if (!motionEnabled || HERO_VIDEOS.length <= 1) {
-      setActiveVideo(0);
+    if (!motionEnabled || HERO_IMAGES.length <= 1) {
+      setActiveImage(0);
       return;
     }
 
     const interval = window.setInterval(() => {
-      setActiveVideo((current) => (current + 1) % HERO_VIDEOS.length);
-    }, 14000);
+      setActiveImage((current) => (current + 1) % HERO_IMAGES.length);
+    }, 10000);
 
     return () => window.clearInterval(interval);
   }, [motionEnabled]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const element = heroRef.current;
-    if (!element) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.35 },
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    videoRefs.current.forEach((video, index) => {
-      if (!video) {
-        return;
-      }
-      if (motionEnabled && isInView && index === activeVideo) {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // ignore autoplay restrictions
-          });
-        }
-      } else {
-        video.pause();
-        const fastSeek = (video as HTMLVideoElement & { fastSeek?: (time: number) => void })
-          .fastSeek;
-        if (typeof fastSeek === "function") {
-          try {
-            fastSeek.call(video, 0);
-            return;
-          } catch {
-            // ignore and fallback
-          }
-        }
-        video.currentTime = 0;
-      }
-    });
-  }, [motionEnabled, isInView, activeVideo]);
 
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
   const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
-    <section id="hero" className={styles.hero} ref={heroRef}>
-      <div className={styles.videoBackground} aria-hidden="true">
-        {HERO_VIDEOS.map((video, index) => (
-          <video
-            key={video.id}
-            className={`${styles.backgroundVideo} ${index === activeVideo ? styles.activeVideo : ""}`}
-            src={video.src}
-            poster={video.poster}
-            muted
-            playsInline
-            loop
-            preload="metadata"
-            ref={(element) => {
-              if (element) {
-                videoRefs.current[index] = element;
-              }
-            }}
-          />
+    <section id="hero" className={styles.hero}>
+      <div className={styles.imageBackdrop} aria-hidden="true">
+        {HERO_IMAGES.map((image, index) => (
+          <div
+            key={image.id}
+            className={`${styles.heroImage} ${index === activeImage ? styles.imageActive : ""}`}
+            style={{ transform: `translateY(${frameTranslate / 2}px)` }}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="100vw"
+              priority={index === 0}
+            />
+          </div>
         ))}
-        <div className={styles.videoOverlay} />
+        <div className={styles.imageOverlay} />
       </div>
-      <div className={styles.backgroundGradient} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.copy}>
           <p className={styles.tagline}>Atlas Otel Tech</p>
