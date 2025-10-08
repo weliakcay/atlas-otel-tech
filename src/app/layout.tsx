@@ -1,21 +1,6 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-
-const baseSans = Source_Sans_3({
-  variable: "--font-base",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const headingSerif = Cormorant_Garamond({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Atlas Otel Tech — 7 Günde AI-Hazır Otel Web Sitesi & Rezervasyon",
@@ -60,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={`${baseSans.variable} ${headingSerif.variable}`}>
+      <body>
         {children}
       </body>
       <Script id="atlas-org-schema" type="application/ld+json">
