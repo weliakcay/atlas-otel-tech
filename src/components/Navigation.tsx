@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./Navigation.module.css";
@@ -37,9 +38,21 @@ export function Navigation() {
   return (
     <header className={`${styles.wrapper} ${elevated ? styles.elevated : ""}`}>
       <nav className={styles.nav} aria-label="Atlas Otel Tech ana navigasyon">
-        <Link href="/#hero" className={styles.logo} onClick={closeMenu}>
-          <span aria-hidden="true" className={styles.logoMark}>
-            A
+        <Link
+          href="/#hero"
+          className={styles.logo}
+          onClick={closeMenu}
+          aria-label="Atlas Otel Tech ana sayfa"
+        >
+          <span className={styles.logoImageWrapper} aria-hidden="true">
+            <Image
+              src="/atlas-logo.png"
+              alt=""
+              width={48}
+              height={48}
+              priority
+              className={styles.logoImage}
+            />
           </span>
           <span className={styles.logoText}>
             Atlas <span>Otel Tech</span>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./Footer.module.css";
 
 const FOOTER_LINKS = [
@@ -35,7 +36,10 @@ export function Footer() {
     <footer className={styles.footer} aria-labelledby="footer-heading">
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <span className={styles.logo} aria-label="Atlas Otel Tech">Atlas Otel Tech</span>
+          <div className={styles.logo}>
+            <Image src="/atlas-logo.png" alt="" width={56} height={56} priority />
+            <span className={styles.srOnly}>Atlas Otel Tech</span>
+          </div>
           <p>Komisyon değil, rezervasyon kazanın.</p>
           <p className={styles.muted}>Altındağ Mah. Muratpaşa / Antalya</p>
           <p>
