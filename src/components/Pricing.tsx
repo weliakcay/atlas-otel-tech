@@ -1,5 +1,45 @@
 import Script from "next/script";
+import { type CSSProperties } from "react";
 import styles from "./Pricing.module.css";
+
+function hexToRgbChannels(color: string): string | null {
+  if (!color) {
+    return null;
+  }
+  let normalized = color.trim();
+  if (normalized.startsWith("#")) {
+    normalized = normalized.slice(1);
+  }
+  if (normalized.length === 3) {
+    normalized = normalized
+      .split("")
+      .map((char) => char + char)
+      .join("");
+  }
+  if (normalized.length !== 6) {
+    return null;
+  }
+  const value = Number.parseInt(normalized, 16);
+  if (Number.isNaN(value)) {
+    return null;
+  }
+  const r = (value >> 16) & 255;
+  const g = (value >> 8) & 255;
+  const b = value & 255;
+  return `${r} ${g} ${b}`;
+}
+
+function createAccentStyle(accent: string, soft: string): CSSProperties {
+  const accentRgb = hexToRgbChannels(accent);
+  const style: Record<string, string> = {
+    "--card-accent": accent,
+    "--card-accent-soft": soft,
+  };
+  if (accentRgb) {
+    style["--card-accent-rgb"] = accentRgb;
+  }
+  return style as CSSProperties;
+}
 
 const PACKAGES = [
   {
@@ -14,6 +54,8 @@ const PACKAGES = [
       "Temel SEO, SSL, WhatsApp tıkla-yaz",
       "KVKK & çerez barı",
     ],
+    accentColor: "#0A3D62",
+    accentSoft: "#9ed7ff",
   },
   {
     id: "proof",
@@ -28,6 +70,8 @@ const PACKAGES = [
       "Promosyon şeridi (erken rezervasyon/kupon)",
     ],
     highlighted: true,
+    accentColor: "#17A2B8",
+    accentSoft: "#90ecf6",
   },
   {
     id: "direct",
@@ -41,6 +85,8 @@ const PACKAGES = [
       "İletişim/teklif formları, kupon/upsell alanları",
       "+ HotelAIassistant denemesi (opsiyon)",
     ],
+    accentColor: "#F39C12",
+    accentSoft: "#ffe0b3",
   },
 ];
 
@@ -87,6 +133,7 @@ export function Pricing() {
               key={pkg.id}
               id={pkg.id}
               className={`${styles.card} ${pkg.highlighted ? styles.highlighted : ""}`}
+              style={createAccentStyle(pkg.accentColor, pkg.accentSoft)}
             >
               <div className={styles.cardHeader}>
                 <h3>{pkg.name}</h3>

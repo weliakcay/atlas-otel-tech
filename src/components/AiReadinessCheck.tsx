@@ -8,35 +8,35 @@ type QuestionAnswer = "evet" | "hayir" | "";
 const QUESTIONS = [
   {
     id: "schemaHotel",
-    text: "Otel sayfalarınızda schema.org/Hotel işaretlemesi var mı?",
+    text: "Google’da otel adınızı arayınca resmi siteniz ilk sayfada görünüyor mu?",
   },
   {
     id: "roomJsonLd",
-    text: "Oda tipleri JSON-LD ile tanımlı mı?",
+    text: "Sitenizde oda tipleri fotoğraf, fiyat ve kısa açıklamayla net şekilde listelenmiş mi?",
   },
   {
     id: "cwv",
-    text: "Core Web Vitals (LCP, CLS, INP) yeşil bölgede mi?",
+    text: "Telefon veya tablette siteyi açtığınızda sayfa 3 saniyeden kısa sürede yükleniyor mu?",
   },
   {
     id: "hreflang",
-    text: "Çok dilli sayfalarda hreflang etiketleri doğru mu?",
+    text: "Yabancı misafirler için sayfanın İngilizce (veya ikinci dil) versiyonu hazır mı?",
   },
   {
     id: "whatsapp",
-    text: "WhatsApp/wa.me kısa yol ve tel: linkleri mevcut mu?",
+    text: "Ziyaretçiler tek tıkla sizi arayabiliyor ya da WhatsApp’tan yazabiliyor mu?",
   },
   {
     id: "prices",
-    text: "Fiyat verisi makinece çıkarılabilir bloklarda mı (tablo/list)?",
+    text: "Güncel fiyatlarınız ve kampanyalarınız sitede açıkça paylaşılmış mı?",
   },
   {
     id: "faq",
-    text: "SSS bölümü var ve FAQPage şemasıyla işaretli mi?",
+    text: "Misafirlerin sık sorduğu sorular (check-in saati, otopark, çocuk politikası vb.) sitede yer alıyor mu?",
   },
   {
     id: "forms",
-    text: "Formlar (iletişim/teklif) spam korumalı ve zorunlu KVKK onaylı mı?",
+    text: "İletişim formunda zorunlu onay kutusu (KVKK/gizlilik) ve gönderim sonrası bildirim alıyor musunuz?",
   },
 ];
 
