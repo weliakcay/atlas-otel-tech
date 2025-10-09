@@ -13,13 +13,24 @@ export async function POST(request: Request) {
     const payload = await request.json();
 
     const candidateUrls: string[] = [];
-    if (payload.source === "final-cta") {
-      candidateUrls.push(FINAL_CTA_WEBHOOK_URL);
-      if (FINAL_CTA_WEBHOOK_URL.includes("/webhook-test/")) {
-        candidateUrls.push(FINAL_CTA_WEBHOOK_URL.replace("/webhook-test/", "/webhook/"));
+    const appendUrl = (url: string | undefined | null) => {
+      if (!url) return;
+      if (!candidateUrls.includes(url)) {
+        candidateUrls.push(url);
       }
-    } else {
-      candidateUrls.push(WEBHOOK_URL);
+    };
+
+    if (payload.source === "final-cta") {
+      appendUrl(FINAL_CTA_WEBHOOK_URL);
+      if (FINAL_CTA_WEBHOOK_URL.includes("/webhook-test/")) {
+        appendUrl(FINAL_CTA_WEBHOOK_URL.replace("/webhook-test/", "/webhook/"));
+      } else if (FINAL_CTA_WEBHOOK_URL.includes("/webhook/")) {
+        appendUrl(FINAL_CTA_WEBHOOK_URL.replace("/webhook/", "/webhook-test/"));
+      }
+    }
+
+    if (candidateUrls.length === 0) {
+      appendUrl(WEBHOOK_URL);
     }
 
     const forwardedPayload = {
