@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
@@ -10,31 +11,33 @@ const TRUST_ITEMS = [
   { label: "KVKK" },
 ];
 
-const HERO_VIDEOS = [
+const HERO_IMAGES = [
   {
-    id: "resort-drone",
-    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
+    id: "mediterranean-shore",
+    src: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
+    alt: "Deniz kıyısında palmiyeli sahil manzarası",
   },
   {
-    id: "infinity-pool",
-    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
+    id: "sunset-pier",
+    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
+    alt: "Gün batımında marina ve yatlar",
   },
   {
-    id: "marina-sunset",
-    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
+    id: "mountain-retreat",
+    src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1920&q=90",
+    alt: "Dağ otelinde sıcak ışıklı bungalovlar",
+  },
+  {
+    id: "city-rooftop",
+    src: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1920&q=90",
+    alt: "Şehir otelinin çatı havuzu",
   },
 ];
 
 export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
-  const [activeVideo, setActiveVideo] = useState(0);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -90,14 +93,14 @@ export function Hero() {
   }, [motionEnabled]);
 
   useEffect(() => {
-    if (!motionEnabled || HERO_VIDEOS.length <= 1) {
-      setActiveVideo(0);
+    if (!motionEnabled || HERO_IMAGES.length <= 1) {
+      setActiveImage(0);
       return;
     }
 
     const interval = window.setInterval(() => {
-      setActiveVideo((current) => (current + 1) % HERO_VIDEOS.length);
-    }, 14000);
+      setActiveImage((current) => (current + 1) % HERO_IMAGES.length);
+    }, 12000);
 
     return () => window.clearInterval(interval);
   }, [motionEnabled]);
@@ -107,21 +110,22 @@ export function Hero() {
 
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.videoBackground} aria-hidden="true">
-        {HERO_VIDEOS.map((video, index) => (
-          <video
-            key={video.id}
-            className={`${styles.backgroundVideo} ${index === activeVideo ? styles.activeVideo : ""}`}
-            src={video.src}
-            poster={video.poster}
-            muted
-            playsInline
-            loop
-            preload={motionEnabled ? "auto" : "metadata"}
-            autoPlay={motionEnabled}
-          />
+      <div className={styles.imageBackground} aria-hidden="true">
+        {HERO_IMAGES.map((image, index) => (
+          <div
+            key={image.id}
+            className={`${styles.backgroundImage} ${index === activeImage ? styles.activeImage : ""}`}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              priority={index === 0}
+              sizes="100vw"
+            />
+          </div>
         ))}
-        <div className={styles.videoOverlay} />
+        <div className={styles.backgroundOverlay} />
       </div>
       <div className={styles.backgroundGradient} aria-hidden="true" />
       <div className={styles.inner}>

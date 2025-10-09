@@ -8,40 +8,51 @@
   align-items: center;
 }
 
-.videoBackground {
+.imageBackground {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
 }
 
-.backgroundVideo {
+.backgroundImage {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.15) contrast(1.05) brightness(1.06);
   opacity: 0;
   transition: opacity 1.8s ease;
   will-change: opacity;
 }
 
-.activeVideo {
+.backgroundImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.12) contrast(1.05) brightness(1.05);
+  transform: scale(1.02);
+  transition: transform 4s ease-in-out;
+}
+
+.activeImage {
   opacity: 1;
 }
 
-.videoOverlay {
+.activeImage img {
+  transform: scale(1);
+}
+
+.backgroundOverlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: transparent;
+  background: linear-gradient(160deg, rgba(5, 19, 35, 0.65), rgba(5, 19, 35, 0.25) 60%, transparent);
 }
 
 .backgroundGradient {
   position: absolute;
   inset: 0;
-  background: transparent;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(15, 64, 102, 0.38), transparent 55%),
+    linear-gradient(145deg, rgba(8, 20, 36, 0.55), rgba(15, 49, 78, 0.18) 55%, transparent);
   pointer-events: none;
   z-index: 1;
 }
@@ -502,7 +513,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .backgroundVideo {
+  .backgroundImage {
     transition: none;
+  }
+
+  .backgroundImage img {
+    transition: none;
+    transform: none !important;
   }
 }
