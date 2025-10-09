@@ -164,7 +164,7 @@ export function AiReadinessCheck() {
             <h3>Teşekkürler! Skorunuz: {score} / 8</h3>
             <p>{resultMessage}</p>
             <div className={styles.successActions}>
-              <a className={styles.primaryCta} href="https://wa.me/905312223344" target="_blank">
+              <a className={styles.primaryCta} href="https://wa.me/00905549001093" target="_blank">
                 WhatsApp’tan görüşelim
               </a>
               <a className={styles.secondaryCta} href="#demo-form">

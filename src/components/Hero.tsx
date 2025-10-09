@@ -10,31 +10,9 @@ const TRUST_ITEMS = [
   { label: "KVKK" },
 ];
 
-const HERO_VIDEOS = [
-  {
-    id: "resort-drone",
-    src: "https://cdn.coverr.co/videos/coverr-aerial-view-of-a-resort-2165/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
-  },
-  {
-    id: "infinity-pool",
-    src: "https://cdn.coverr.co/videos/coverr-infinity-pool-at-luxury-hotel-0102/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=90",
-  },
-  {
-    id: "marina-sunset",
-    src: "https://cdn.coverr.co/videos/coverr-harbor-at-sunset-8013/1080p.mp4",
-    poster:
-      "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
-  },
-];
-
 export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
-  const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -89,40 +67,11 @@ export function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [motionEnabled]);
 
-  useEffect(() => {
-    if (!motionEnabled || HERO_VIDEOS.length <= 1) {
-      setActiveVideo(0);
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setActiveVideo((current) => (current + 1) % HERO_VIDEOS.length);
-    }, 14000);
-
-    return () => window.clearInterval(interval);
-  }, [motionEnabled]);
-
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
   const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
 
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.videoBackground} aria-hidden="true">
-        {HERO_VIDEOS.map((video, index) => (
-          <video
-            key={video.id}
-            className={`${styles.backgroundVideo} ${index === activeVideo ? styles.activeVideo : ""}`}
-            src={video.src}
-            poster={video.poster}
-            muted
-            playsInline
-            loop
-            preload={motionEnabled ? "auto" : "metadata"}
-            autoPlay={motionEnabled}
-          />
-        ))}
-        <div className={styles.videoOverlay} />
-      </div>
       <div className={styles.backgroundGradient} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.copy}>

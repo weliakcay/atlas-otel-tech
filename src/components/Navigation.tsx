@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import styles from "./Navigation.module.css";
 
 const NAV_LINKS = [
-  { href: "/#hero", label: "Ana Sayfa" },
-  { href: "/#solutions", label: "Çözümler" },
-  { href: "/#templates", label: "Tasarım Modelleri" },
-  { href: "/#resources", label: "Kaynaklar" },
-  { href: "/#pricing", label: "Fiyatlar" },
-  { href: "/#contact", label: "İletişim" },
+  { href: "#hero", label: "Ana Sayfa" },
+  { href: "#solutions", label: "Çözümler" },
+  { href: "#templates", label: "Tasarım Modelleri" },
+  { href: "#resources", label: "Kaynaklar" },
+  { href: "#pricing", label: "Fiyatlar" },
+  { href: "#contact", label: "İletişim" },
 ];
 
 export function Navigation() {
@@ -37,7 +37,7 @@ export function Navigation() {
   return (
     <header className={`${styles.wrapper} ${elevated ? styles.elevated : ""}`}>
       <nav className={styles.nav} aria-label="Atlas Otel Tech ana navigasyon">
-        <Link href="/#hero" className={styles.logo} onClick={closeMenu}>
+        <Link href="#hero" className={styles.logo} onClick={closeMenu}>
           <span aria-hidden="true" className={styles.logoMark}>
             A
           </span>
@@ -61,27 +61,27 @@ export function Navigation() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} onClick={closeMenu}>
+                <a href={link.href} onClick={closeMenu}>
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
           <div className={styles.actions}>
-            <Link
+            <a
               className={styles.secondaryCta}
-              href="/#ai-check"
+              href="#ai-check"
               onClick={closeMenu}
             >
               Siteniz AI-hazır mı?
-            </Link>
-            <Link
+            </a>
+            <a
               className={styles.primaryCta}
-              href="/#demo-form"
+              href="#demo-form"
               onClick={closeMenu}
             >
               Demo İsteyin
-            </Link>
+            </a>
           </div>
         </div>
       </nav>

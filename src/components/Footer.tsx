@@ -37,13 +37,10 @@ export function Footer() {
         <div className={styles.brand}>
           <span className={styles.logo} aria-label="Atlas Otel Tech">Atlas Otel Tech</span>
           <p>Komisyon değil, rezervasyon kazanın.</p>
-          <p className={styles.muted}>
-            Atlas Otel Teknoloji A.Ş. · Vergi No: 1234567890 · Maslak Mah. 42. Cadde No:12 Sarıyer /
-            İstanbul
-          </p>
+          <p className={styles.muted}>Altındağ Mah. Muratpaşa / Antalya</p>
           <p>
-            Tel: <a href="tel:+902123334455">+90 212 333 44 55</a> ·{" "}
-            E-posta: <a href="mailto:hello@atlasoteltech.com">hello@atlasoteltech.com</a>
+            Tel: <a href="tel:+905549001093">+90 554 900 1093</a> ·{" "}
+            E-posta: <a href="mailto:info@hotelaiassistant.io">info@hotelaiassistant.io</a>
           </p>
           <p className={styles.aiLine}>Atlas Concierge AI — HotelAIassistant altyapısıyla</p>
         </div>
@@ -64,7 +61,7 @@ export function Footer() {
       </div>
       <div className={styles.bottomBar}>
         <span>© {new Date().getFullYear()} Atlas Otel Tech. Tüm hakları saklıdır.</span>
-        <a href="https://wa.me/905312223344" target="_blank" rel="noreferrer">
+        <a href="https://wa.me/00905549001093" target="_blank" rel="noreferrer">
           WhatsApp tıkla-yaz
         </a>
       </div>

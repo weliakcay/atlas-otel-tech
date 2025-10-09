@@ -116,7 +116,7 @@ export function ContactForm() {
             <button type="submit" disabled={status === "submitting"}>
               {status === "submitting" ? "Gönderiliyor..." : "Teklif Al"}
             </button>
-            <a href="https://wa.me/905312223344" target="_blank" rel="noreferrer">
+            <a href="https://wa.me/00905549001093" target="_blank" rel="noreferrer">
               WhatsApp ile konuş
             </a>
           </div>
