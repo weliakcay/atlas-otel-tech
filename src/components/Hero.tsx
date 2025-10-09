@@ -13,24 +13,24 @@ const TRUST_ITEMS = [
 
 const HERO_IMAGES = [
   {
-    id: "mediterranean-shore",
-    src: "https://images.unsplash.com/photo-1501117716987-c8e1ecb2100d?auto=format&fit=crop&w=1920&q=90",
-    alt: "Deniz kıyısında palmiyeli sahil manzarası",
+    id: "turquoise-bay",
+    src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=75",
+    alt: "Turkuaz denizli tropik sahil ve palmiyeler",
   },
   {
-    id: "sunset-pier",
-    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1920&q=90",
-    alt: "Gün batımında marina ve yatlar",
+    id: "sunset-marina",
+    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1600&q=75",
+    alt: "Gün batımında marinada sıralanmış yatlar",
   },
   {
-    id: "mountain-retreat",
-    src: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1920&q=90",
-    alt: "Dağ otelinde sıcak ışıklı bungalovlar",
+    id: "infinity-pool",
+    src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=75",
+    alt: "Otel terasında deniz manzaralı sonsuzluk havuzu",
   },
   {
-    id: "city-rooftop",
-    src: "https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=1920&q=90",
-    alt: "Şehir otelinin çatı havuzu",
+    id: "sunlounger-escape",
+    src: "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1600&q=75",
+    alt: "Geniş güneşlenme alanı ve palmiyeli havuz",
   },
 ];
 
@@ -38,6 +38,9 @@ export function Hero() {
   const [motionEnabled, setMotionEnabled] = useState(true);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [activeImage, setActiveImage] = useState(0);
+  const [loadedStates, setLoadedStates] = useState<boolean[]>(
+    () => HERO_IMAGES.map((_, index) => index === 0),
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -93,17 +96,44 @@ export function Hero() {
   }, [motionEnabled]);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const preloaders = HERO_IMAGES.slice(1).map((image) => {
+      const preloader = new window.Image();
+      preloader.src = image.src;
+      return preloader;
+    });
+
+    return () => {
+      preloaders.forEach((preloader) => {
+        preloader.src = "";
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     if (!motionEnabled || HERO_IMAGES.length <= 1) {
       setActiveImage(0);
       return;
     }
 
     const interval = window.setInterval(() => {
-      setActiveImage((current) => (current + 1) % HERO_IMAGES.length);
-    }, 12000);
+      setActiveImage((current) => {
+        const total = HERO_IMAGES.length;
+        for (let step = 1; step <= total; step += 1) {
+          const candidate = (current + step) % total;
+          if (loadedStates[candidate]) {
+            return candidate;
+          }
+        }
+        return current;
+      });
+    }, 9000);
 
     return () => window.clearInterval(interval);
-  }, [motionEnabled]);
+  }, [motionEnabled, loadedStates]);
 
   const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
   const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
@@ -122,6 +152,17 @@ export function Hero() {
               fill
               priority={index === 0}
               sizes="100vw"
+              loading={index <= 1 ? "eager" : "lazy"}
+              onLoadingComplete={() => {
+                setLoadedStates((prev) => {
+                  if (prev[index]) {
+                    return prev;
+                  }
+                  const nextStates = [...prev];
+                  nextStates[index] = true;
+                  return nextStates;
+                });
+              }}
             />
           </div>
         ))}
