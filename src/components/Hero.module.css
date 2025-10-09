@@ -44,15 +44,13 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(160deg, rgba(5, 19, 35, 0.65), rgba(5, 19, 35, 0.25) 60%, transparent);
+  background: none;
 }
 
 .backgroundGradient {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 10% 15%, rgba(15, 64, 102, 0.38), transparent 55%),
-    linear-gradient(145deg, rgba(8, 20, 36, 0.55), rgba(15, 49, 78, 0.18) 55%, transparent);
+  background: none;
   pointer-events: none;
   z-index: 1;
 }
