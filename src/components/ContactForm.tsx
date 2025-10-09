@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ContactForm.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -8,6 +8,23 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState("Core");
+
+  useEffect(() => {
+    const handlePackageSelect = (event: Event) => {
+      const customEvent = event as CustomEvent<{ packageName?: string }>;
+      const packageName = customEvent.detail?.packageName;
+      if (!packageName) {
+        return;
+      }
+      setSelectedPackage(packageName);
+    };
+
+    window.addEventListener("atlas-package-select", handlePackageSelect);
+    return () => {
+      window.removeEventListener("atlas-package-select", handlePackageSelect);
+    };
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -92,7 +109,13 @@ export function ContactForm() {
             </div>
             <div className={styles.inputGroup}>
               <label htmlFor="cta-package">Paket *</label>
-              <select id="cta-package" name="package" required defaultValue="Core">
+              <select
+                id="cta-package"
+                name="package"
+                required
+                value={selectedPackage}
+                onChange={(event) => setSelectedPackage(event.target.value)}
+              >
                 <option value="Core">Core</option>
                 <option value="Proof">Proof</option>
                 <option value="Direct">Direct</option>

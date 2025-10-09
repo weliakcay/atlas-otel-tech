@@ -1,3 +1,5 @@
+"use client";
+
 import Script from "next/script";
 import { type CSSProperties } from "react";
 import styles from "./Pricing.module.css";
@@ -45,6 +47,7 @@ const PACKAGES = [
   {
     id: "core",
     name: "Atlas Core",
+    formValue: "Core",
     price: "10.000 TL",
     description:
       "Temel vitrin, iki dil desteği ve WhatsApp entegrasyonuyla hızlı başlangıç.",
@@ -60,6 +63,7 @@ const PACKAGES = [
   {
     id: "proof",
     name: "Atlas Proof",
+    formValue: "Proof",
     price: "15.000 TL",
     description:
       "Dinamik fiyat tabloları ve yorum rozetleriyle satış kanıtınızı ön plana çıkarın.",
@@ -76,6 +80,7 @@ const PACKAGES = [
   {
     id: "direct",
     name: "Atlas Direct",
+    formValue: "Direct",
     price: "25.000 TL",
     description:
       "Online rezervasyon ve ödeme akışıyla doğrudan satışları güvenle yönetin.",
@@ -145,7 +150,20 @@ export function Pricing() {
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
-              <a className={styles.cta} href="#demo-form" data-package={pkg.name}>
+              <a
+                className={styles.cta}
+                href="#demo-form"
+                data-package={pkg.formValue}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(
+                      new CustomEvent("atlas-package-select", {
+                        detail: { packageName: pkg.formValue },
+                      }),
+                    );
+                  }
+                }}
+              >
                 {pkg.cta}
               </a>
             </article>
