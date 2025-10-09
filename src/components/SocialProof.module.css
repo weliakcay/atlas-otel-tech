@@ -49,18 +49,34 @@
 }
 
 .ratingBadge {
-  background: rgba(10, 61, 98, 0.08);
-  border-radius: var(--radius-md);
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   color: var(--color-primary);
   font-weight: 600;
+  border: 1px solid rgba(10, 61, 98, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
-.ratingPlatform {
-  opacity: 0.8;
+.ratingLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(242, 245, 247, 0.9);
+  border: 1px solid rgba(10, 61, 98, 0.08);
+}
+
+.ratingLogo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 
 .ratingScore {

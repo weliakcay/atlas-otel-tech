@@ -1,9 +1,31 @@
+import Image from "next/image";
 import styles from "./SocialProof.module.css";
 
 const RATINGS = [
-  { platform: "Google", score: "4.8 / 5", detail: "186 yorum" },
-  { platform: "Booking.com", score: "9.2 / 10", detail: "Top 3 şehir oteli" },
-  { platform: "Tripadvisor", score: "#1", detail: "Yılın butik oteli" },
+  {
+    platform: "Google",
+    score: "4.8 / 5",
+    detail: "186 yorum",
+    logo: "/google-logo.png",
+    logoWidth: 140,
+    logoHeight: 47,
+  },
+  {
+    platform: "Booking.com",
+    score: "9.2 / 10",
+    detail: "Top 3 şehir oteli",
+    logo: "/booking-logo.png",
+    logoWidth: 140,
+    logoHeight: 24,
+  },
+  {
+    platform: "Tripadvisor",
+    score: "#1",
+    detail: "Yılın butik oteli",
+    logo: "/tripadvisor-logo.png",
+    logoWidth: 140,
+    logoHeight: 30,
+  },
 ];
 
 const TESTIMONIALS = [
@@ -43,7 +65,15 @@ export function SocialProof() {
           <div className={styles.ratings}>
             {RATINGS.map((rating) => (
               <div key={rating.platform} className={styles.ratingBadge}>
-                <span className={styles.ratingPlatform}>{rating.platform}</span>
+                <div className={styles.ratingLogo}>
+                  <Image
+                    src={rating.logo}
+                    alt={`${rating.platform} logo`}
+                    width={rating.logoWidth}
+                    height={rating.logoHeight}
+                    loading="lazy"
+                  />
+                </div>
                 <span className={styles.ratingScore}>{rating.score}</span>
                 <span className={styles.ratingDetail}>{rating.detail}</span>
               </div>
