@@ -12,45 +12,73 @@ export async function POST(request: Request) {
   try {
     const payload = await request.json();
 
-    const webhookUrl = payload.source === "final-cta" ? FINAL_CTA_WEBHOOK_URL : WEBHOOK_URL;
+    const candidateUrls: string[] = [];
+    if (payload.source === "final-cta") {
+      candidateUrls.push(FINAL_CTA_WEBHOOK_URL);
+      if (FINAL_CTA_WEBHOOK_URL.includes("/webhook-test/")) {
+        candidateUrls.push(FINAL_CTA_WEBHOOK_URL.replace("/webhook-test/", "/webhook/"));
+      }
+    } else {
+      candidateUrls.push(WEBHOOK_URL);
+    }
 
     const forwardedPayload = {
       ...payload,
       receivedAt: new Date().toISOString(),
     };
 
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json, text/plain;q=0.9",
-      },
-      body: JSON.stringify(forwardedPayload),
-    });
+    let lastError: { status: number; body: string } | null = null;
+    for (const webhookUrl of candidateUrls) {
+      try {
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json, text/plain;q=0.9",
+          },
+          body: JSON.stringify(forwardedPayload),
+        });
 
-    const responseText = await response.text();
+        const responseText = await response.text();
 
-    if (!response.ok) {
-      console.error("Webhook isteği başarısız:", response.status, responseText);
-      return NextResponse.json(
-        {
-          status: "error",
-          message: "Webhook isteği başarısız oldu.",
-          webhookStatus: response.status,
-          webhookResponse: responseText,
-        },
-        { status: 502 },
-      );
+        if (!response.ok) {
+          lastError = { status: response.status, body: responseText };
+          console.error("Webhook isteği başarısız:", response.status, responseText, webhookUrl);
+          continue;
+        }
+
+        return NextResponse.json(
+          {
+            status: "ok",
+            forwarded: true,
+            webhookStatus: response.status,
+            webhookResponse: responseText || null,
+            webhookUrl,
+          },
+          { status: 200 },
+        );
+      } catch (error) {
+        console.error("Webhook isteği gönderilirken hata oluştu:", error);
+        lastError = { status: 0, body: (error as Error).message };
+        continue;
+      }
     }
+
+    const errorPayload =
+      lastError ??
+      ({
+        status: 500,
+        body: "Bilinmeyen hata",
+      } as const);
 
     return NextResponse.json(
       {
-        status: "ok",
-        forwarded: true,
-        webhookStatus: response.status,
-        webhookResponse: responseText || null,
+        status: "error",
+        message: "Webhook isteği başarısız oldu.",
+        webhookStatus: errorPayload.status,
+        webhookResponse: errorPayload.body,
       },
-      { status: 200 },
+      { status: 502 },
     );
   } catch (error) {
     console.error("Lead API hata:", error);
