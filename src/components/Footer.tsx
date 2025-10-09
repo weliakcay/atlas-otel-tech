@@ -43,7 +43,8 @@ export function Footer() {
           <p>Komisyon değil, rezervasyon kazanın.</p>
           <p className={styles.muted}>Altındağ Mah. Muratpaşa / Antalya</p>
           <p>
-            Tel: <a href="tel:+905549001093">+90 554 900 1093</a> ·{" "}
+            Tel: <a href="tel:+905549001093">+90 554 900 1093</a>
+            <br />
             E-posta: <a href="mailto:info@hotelaiassistant.io">info@hotelaiassistant.io</a>
           </p>
           <p className={styles.aiLine}>Atlas Concierge AI — HotelAIassistant altyapısıyla</p>
