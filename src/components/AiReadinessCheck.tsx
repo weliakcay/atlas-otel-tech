@@ -114,13 +114,16 @@ export function AiReadinessCheck() {
       return;
     }
 
+    const emailEntry = formData.get("email");
+    if (!emailEntry || (typeof emailEntry === "string" && emailEntry.trim() === "")) {
+      setMessage("Lütfen raporu gönderebilmemiz için e-posta adresinizi yazın.");
+      return;
+    }
+
+    const email = typeof emailEntry === "string" ? emailEntry.trim() : emailEntry.toString();
+
     const payload = {
-      fullName: formData.get("fullName"),
-      hotelName: formData.get("hotelName"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      website: formData.get("website"),
-      preferredPackage: formData.get("preferredPackage"),
+      email,
       answers: QUESTIONS.map((question) => ({
         question: question.text,
         answer: formData.get(question.id),
@@ -239,49 +242,20 @@ export function AiReadinessCheck() {
                 </fieldset>
               ))}
             </div>
-            <div className={styles.leadFields}>
-              <div className={styles.inputGroup}>
-                <label htmlFor="fullName">Ad Soyad *</label>
-                <input id="fullName" name="fullName" type="text" required autoComplete="name" />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="hotelName">Otel Adı *</label>
-                <input id="hotelName" name="hotelName" type="text" required />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="email">E-posta *</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="phone">Telefon *</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  required
-                  autoComplete="tel"
-                  inputMode="tel"
-                />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="website">Mevcut Site URL</label>
-                <input id="website" name="website" type="url" placeholder="https://siteniz.com" />
-              </div>
-              <div className={styles.inputGroup}>
-                <label htmlFor="preferredPackage">Tercih Edilen Paket *</label>
-                <select id="preferredPackage" name="preferredPackage" required defaultValue="core">
-                  <option value="core">Core</option>
-                  <option value="proof">Proof</option>
-                  <option value="direct">Direct</option>
-                </select>
-              </div>
+            <div className={styles.emailCapture}>
+              <label htmlFor="ai-email">E-posta *</label>
+              <input
+                id="ai-email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                inputMode="email"
+                placeholder="ornek@oteliniz.com"
+              />
+              <p className={styles.emailHint}>
+                Raporu ücretsiz analizle birlikte bu adrese gönderiyoruz. Spam klasörünü kontrol etmeyi unutmayın.
+              </p>
             </div>
             <div className={styles.actions}>
               <label className={styles.checkbox}>

@@ -8,6 +8,10 @@ const FINAL_CTA_WEBHOOK_URL =
   process.env.N8N_FINAL_CTA_WEBHOOK_URL ??
   "https://weliakcay.app.n8n.cloud/webhook-test/f7432f35-9e06-4e30-ba57-e8618cf3f9f5";
 
+const AI_CHECK_WEBHOOK_URL =
+  process.env.N8N_AI_CHECK_WEBHOOK_URL ??
+  "https://weliakcay.app.n8n.cloud/webhook-test/atlasoteltech-anket";
+
 export async function POST(request: Request) {
   try {
     const payload = await request.json();
@@ -26,6 +30,15 @@ export async function POST(request: Request) {
         appendUrl(FINAL_CTA_WEBHOOK_URL.replace("/webhook-test/", "/webhook/"));
       } else if (FINAL_CTA_WEBHOOK_URL.includes("/webhook/")) {
         appendUrl(FINAL_CTA_WEBHOOK_URL.replace("/webhook/", "/webhook-test/"));
+      }
+    }
+
+    if (payload.source === "ai-readiness-check") {
+      appendUrl(AI_CHECK_WEBHOOK_URL);
+      if (AI_CHECK_WEBHOOK_URL.includes("/webhook-test/")) {
+        appendUrl(AI_CHECK_WEBHOOK_URL.replace("/webhook-test/", "/webhook/"));
+      } else if (AI_CHECK_WEBHOOK_URL.includes("/webhook/")) {
+        appendUrl(AI_CHECK_WEBHOOK_URL.replace("/webhook/", "/webhook-test/"));
       }
     }
 
