@@ -462,6 +462,13 @@
 
   .preview {
     order: -1;
+    align-self: center;
+    width: 100%;
+  }
+
+  .previewWindow {
+    width: 100%;
+    max-width: 360px;
   }
 }
 
@@ -507,6 +514,14 @@
 
   .previewFooter {
     flex-direction: column;
+  }
+
+  .previewWindow::after {
+    inset: 12px;
+  }
+
+  .previewToolbar {
+    justify-content: center;
   }
 }
 
