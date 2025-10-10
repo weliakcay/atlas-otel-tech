@@ -54,8 +54,10 @@ export function ContactForm() {
 
       setStatus("success");
       setMessage(result?.message ?? "Talebiniz alındı. 24 saat içinde dönüş yapıyoruz.");
-      event.currentTarget.reset();
-      setSelectedPackage("Core");
+      window.setTimeout(() => {
+        event.currentTarget.reset();
+        setSelectedPackage("Core");
+      }, 0);
     } catch (error) {
       console.error(error);
       const errorMessage =
