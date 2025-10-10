@@ -5,38 +5,64 @@ import styles from "./AiReadinessCheck.module.css";
 
 type QuestionAnswer = "evet" | "hayir" | "";
 
-const QUESTIONS = [
+type Question = {
+  id: string;
+  text: string;
+  importance: string;
+};
+
+const QUESTIONS: Question[] = [
   {
-    id: "schemaHotel",
-    text: "Google’da otel adınızı arayınca resmi siteniz ilk sayfada görünüyor mu?",
+    id: "serp",
+    text: "Google’da otel adınızı aradığınızda resmi web siteniz ilk sırada çıkıyor mu?",
+    importance:
+      "Arama motoru görünürlüğü, yapay zekâ aramalarının temelidir. İlk sayfada yoksanız, AI tabanlı sonuçlarda da görünmezsiniz.",
   },
   {
-    id: "roomJsonLd",
-    text: "Sitenizde oda tipleri fotoğraf, fiyat ve kısa açıklamayla net şekilde listelenmiş mi?",
+    id: "roomListing",
+    text:
+      "Sitenizde oda tipleri fiyat, fotoğraf, açıklama ve müsaitlik bilgisiyle açıkça listelenmiş mi?",
+    importance:
+      "AI sistemleri verileri okunabilir formatta ister. Bilgiler PDF veya görselde ise algoritmalar analiz edemez.",
   },
   {
-    id: "cwv",
-    text: "Telefon veya tablette siteyi açtığınızda sayfa 3 saniyeden kısa sürede yükleniyor mu?",
+    id: "speed",
+    text: "Ziyaretçiler siteyi telefon veya tablette açtığında sayfa 3 saniyeden kısa sürede yükleniyor mu?",
+    importance:
+      "Hızlı siteler hem sıralamada öne çıkar hem de AI sistemlerine doğru kullanıcı verisi sağlar.",
   },
   {
-    id: "hreflang",
-    text: "Yabancı misafirler için sayfanın İngilizce (veya ikinci dil) versiyonu hazır mı?",
+    id: "multilingual",
+    text: "Sayfanız İngilizce, Almanca, Rusça veya başka dillerde de otomatik olarak görüntülenebiliyor mu?",
+    importance:
+      "Çok dilli içerik, yapay zekânın global misafir davranışlarını öğrenmesini sağlar; tek dil görünürlüğünüzü sınırlar.",
   },
   {
-    id: "whatsapp",
-    text: "Ziyaretçiler tek tıkla sizi arayabiliyor ya da WhatsApp’tan yazabiliyor mu?",
+    id: "messaging",
+    text:
+      "Ziyaretçiler tek dokunuşla sizi arayabiliyor, WhatsApp veya online asistan aracılığıyla mesaj gönderebiliyor mu?",
+    importance:
+      "Her çağrı ve mesaj AI için bir öğrenme verisidir. Kolay iletişim yoksa veri akışı da durur.",
   },
   {
-    id: "prices",
-    text: "Güncel fiyatlarınız ve kampanyalarınız sitede açıkça paylaşılmış mı?",
+    id: "campaigns",
+    text: "Güncel kampanyalar, özel fiyatlar veya son dakika fırsatları düzenli olarak paylaşılabiliyor mu?",
+    importance:
+      "Dinamik içerikler SEO’yu güçlendirir; AI rezervasyon motorları da sizi aktif işletme olarak etiketler.",
   },
   {
     id: "faq",
-    text: "Misafirlerin sık sorduğu sorular (check-in saati, otopark, çocuk politikası vb.) sitede yer alıyor mu?",
+    text:
+      "Misafirlerin en çok sorduğu sorular (check-in, otopark, evcil hayvan politikası vb.) sitenizde listelenmiş mi?",
+    importance:
+      "Bu bilgiler HotelAI Assistant gibi sistemlerin eğitim setidir; eksikler gelecekteki AI iletişiminde boşluk yaratır.",
   },
   {
-    id: "forms",
-    text: "İletişim formunda zorunlu onay kutusu (KVKK/gizlilik) ve gönderim sonrası bildirim alıyor musunuz?",
+    id: "kvkk",
+    text:
+      "İletişim formunuz KVKK onayı, otomatik yanıt ve veri kaydı/analiz sistemiyle entegre mi?",
+    importance:
+      "Yapay zekâ optimizasyonu izinli ve analiz edilebilir verilerle çalışır. Bu yapı yoksa davranış analizi mümkün olmaz.",
   },
 ];
 
@@ -153,10 +179,10 @@ export function AiReadinessCheck() {
       <div className={styles.inner}>
         <header className={styles.header}>
           <span className={styles.kicker}>AI-Uyum Check</span>
-          <h2 id="ai-check-heading">8 kısa soruyla sitenizin AI’ye hazır olup olmadığını görün.</h2>
+          <h2 id="ai-check-heading">Siteniz Yapay Zekâ Çağına Hazır mı?</h2>
+          <p>AI entegrasyonları veriyi sever. Siteniz bu verileri gerçekten kullanabiliyor mu?</p>
           <p>
-            AI entegrasyonları veriyi sever. Siteniz hazır mı? Sonucu e-postanıza gönderelim ve
-            uzmanlarımız değerlendirsin.
+            8 kısa soruyla öğrenin — sonucu e-postanıza gönderelim, uzmanlarımız ücretsiz analiz etsin.
           </p>
         </header>
         {status === "success" ? (
@@ -184,6 +210,9 @@ export function AiReadinessCheck() {
                     <span className={styles.questionIndex}>{index + 1}</span>
                     {question.text}
                   </legend>
+                  <p className={styles.importance}>
+                    <strong>Neden önemli:</strong> {question.importance}
+                  </p>
                   <div className={styles.options}>
                     <label>
                       <input

@@ -64,6 +64,11 @@
 
 .header p {
   color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+.header p + p {
+  margin-top: -4px;
 }
 
 .form {
@@ -121,6 +126,22 @@
   place-items: center;
   background: linear-gradient(135deg, rgba(10, 61, 98, 0.15), rgba(23, 162, 184, 0.28));
   color: #fff;
+  font-weight: 700;
+}
+
+.importance {
+  margin: -8px 0 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(23, 162, 184, 0.12);
+  color: rgba(10, 61, 98, 0.85);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  border-left: 3px solid rgba(23, 162, 184, 0.6);
+}
+
+.importance strong {
+  color: var(--color-primary);
   font-weight: 700;
 }
 
