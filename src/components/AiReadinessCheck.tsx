@@ -157,7 +157,10 @@ export function AiReadinessCheck() {
       }
 
       setStatus("success");
-      setMessage(result?.message ?? "Analiziniz kısa süre içinde mail adresinize gönderilecektir.");
+      setMessage(
+        result?.message ??
+          "Analiz sonucunuz kısa süre içinde e-posta adresinize gönderilecektir. Lütfen 5 dakika içerisinde gelen kutunuzu ve spam klasörünüzü kontrol edin.",
+      );
       window.setTimeout(() => {
         event.currentTarget.reset();
       }, 0);
