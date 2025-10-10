@@ -44,18 +44,24 @@ export function ContactForm() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Gönderim hatası");
+      const result = (await response.json().catch(() => null)) as
+        | { status?: string; message?: string }
+        | null;
+
+      if (!response.ok || (result?.status && result.status !== "ok")) {
+        throw new Error(result?.message ?? "Gönderim hatası");
       }
 
       setStatus("success");
-      setMessage("Talebiniz alındı. 24 saat içinde dönüş yapıyoruz.");
+      setMessage(result?.message ?? "Talebiniz alındı. 24 saat içinde dönüş yapıyoruz.");
       event.currentTarget.reset();
       setSelectedPackage("Core");
     } catch (error) {
       console.error(error);
+      const errorMessage =
+        error instanceof Error && error.message ? error.message : "Beklenmeyen bir sorun oluştu.";
+      setMessage(errorMessage);
       setStatus("error");
-      setMessage("Beklenmeyen bir sorun oluştu, lütfen tekrar deneyin.");
     }
   };
 
