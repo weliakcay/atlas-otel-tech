@@ -148,13 +148,19 @@ export function AiReadinessCheck() {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Gönderim başarısız");
+      const result = (await response.json().catch(() => null)) as
+        | { status?: string; message?: string }
+        | null;
+
+      if (!response.ok || (result?.status && result.status !== "ok")) {
+        throw new Error(result?.message ?? "Gönderim başarısız");
       }
 
       setStatus("success");
-      setMessage("Raporunuz e-posta ile paylaşıldı. Teşekkürler!");
-      event.currentTarget.reset();
+      setMessage(result?.message ?? "Analiziniz kısa süre içinde mail adresinize gönderilecektir.");
+      window.setTimeout(() => {
+        event.currentTarget.reset();
+      }, 0);
       setAnswers(
         QUESTIONS.reduce(
           (acc, question) => {
@@ -166,8 +172,12 @@ export function AiReadinessCheck() {
       );
     } catch (error) {
       console.error(error);
+      const errorMessage =
+        error instanceof Error && error.message
+          ? error.message
+          : "Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.";
+      setMessage(errorMessage);
       setStatus("error");
-      setMessage("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
     }
   };
 
