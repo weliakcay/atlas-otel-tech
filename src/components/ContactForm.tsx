@@ -156,7 +156,11 @@ export function ContactForm() {
             <p className={styles.feedback} role="status">
               {message}{" "}
               {status === "success" && (
-                <a href="https://cal.com/weliakcay/demoslot" target="_blank" rel="noreferrer">
+                <a
+                  href="https://cal.com/weliakcay/15min?user=weliakcay&overlayCalendar=true"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Takvimden randevu seçin →
                 </a>
               )}
