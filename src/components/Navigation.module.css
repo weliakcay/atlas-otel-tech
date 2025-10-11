@@ -127,7 +127,7 @@
 .secondaryCta,
 .primaryCta {
   border-radius: 999px;
-  padding: 14px 30px;
+  padding: 16px 36px;
   font-weight: 600;
   border: 1px solid transparent;
   transition: transform var(--transition-base), box-shadow var(--transition-base),
