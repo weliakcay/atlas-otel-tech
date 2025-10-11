@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navigation } from "@/components/Navigation";
 import { Pricing } from "@/components/Pricing";
+import { HotelAiAssistantPromo } from "@/components/HotelAiAssistantPromo";
 import { ResourcesPreview } from "@/components/ResourcesPreview";
 import { SocialProof } from "@/components/SocialProof";
 import { TemplatesGallery } from "@/components/TemplatesGallery";
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <ValueProps />
         <Pricing />
+        <HotelAiAssistantPromo />
         <AiReadinessCheck />
         <TemplatesGallery />
         <SocialProof />
