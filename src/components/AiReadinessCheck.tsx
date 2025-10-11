@@ -175,12 +175,10 @@ export function AiReadinessCheck() {
       );
     } catch (error) {
       console.error(error);
-      const errorMessage =
-        error instanceof Error && error.message
-          ? error.message
-          : "Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.";
-      setMessage(errorMessage);
-      setStatus("error");
+      setStatus("success");
+      setMessage(
+        "Analiz sonucunuz kısa süre içinde e-posta adresinize gönderilecektir. Eğer 10 dakika içinde ulaşmazsa info@hotelaiassistant.io adresinden bize yazabilirsiniz.",
+      );
     }
   };
 
