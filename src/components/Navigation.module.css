@@ -126,8 +126,11 @@
 
 .secondaryCta,
 .primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
-  padding: 16px 40px;
+  padding: 16px 48px;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.025em;
@@ -217,7 +220,8 @@
 
   .primaryCta,
   .secondaryCta {
-    text-align: center;
+    width: 100%;
     justify-content: center;
+    text-align: center;
   }
 }
