@@ -7,10 +7,11 @@ import styles from "./Navigation.module.css";
 
 const NAV_LINKS = [
   { href: "/#hero", label: "Ana Sayfa" },
-  { href: "/#solutions", label: "Çözümler" },
-  { href: "/#templates", label: "Tasarım Modelleri" },
-  { href: "/#resources", label: "Kaynaklar" },
-  { href: "/#pricing", label: "Fiyatlar" },
+  { href: "/#pluspos-overview", label: "Operasyon Sistemleri" },
+  { href: "/#digital-solutions", label: "Dijital & AI Çözümleri" },
+  { href: "/#pricing", label: "Paketler" },
+  { href: "/tasarim-modelleri", label: "Tasarım Modelleri" },
+  { href: "/kaynaklar", label: "Kaynaklar" },
   { href: "/#contact", label: "İletişim" },
 ];
 
@@ -83,17 +84,17 @@ export function Navigation() {
           <div className={styles.actions}>
             <Link
               className={styles.secondaryCta}
-              href="/#ai-check"
+              href="/#digital-solutions"
               onClick={closeMenu}
             >
-              Siteniz AI-hazır mı?
+              AI Çözümleri
             </Link>
             <Link
               className={styles.primaryCta}
               href="/#demo-form"
               onClick={closeMenu}
             >
-              Demo İsteyin
+              PlusPOS Demo
             </Link>
           </div>
         </div>

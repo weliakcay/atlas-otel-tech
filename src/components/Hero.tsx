@@ -1,192 +1,165 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./Hero.module.css";
 
 const TRUST_ITEMS = [
-  { label: "SSL" },
-  { label: "Hız (CWV)" },
-  { label: "Çok dilli" },
-  { label: "KVKK" },
-];
-
-const HERO_IMAGES = [
-  {
-    id: "turquoise-bay",
-    src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=75",
-    alt: "Turkuaz denizli tropik sahil ve palmiyeler",
-  },
-  {
-    id: "sunset-marina",
-    src: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=1600&q=75",
-    alt: "Gün batımında marinada sıralanmış yatlar",
-  },
-  {
-    id: "infinity-pool",
-    src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=75",
-    alt: "Otel terasında deniz manzaralı sonsuzluk havuzu",
-  },
-  {
-    id: "sunlounger-escape",
-    src: "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1600&q=75",
-    alt: "Geniş güneşlenme alanı ve palmiyeli havuz",
-  },
+  { label: "Otel & restoranlar için uçtan uca operasyon yönetimi" },
+  { label: "Donanım + yazılım + eğitim tek pakette" },
+  { label: "AI destekli misafir iletişimi ve satış artırma" },
+  { label: "Antalya ve çevresinde yerinde kurulum & destek" },
 ];
 
 export function Hero() {
-  const [motionEnabled, setMotionEnabled] = useState(true);
-  const [scrollOffset, setScrollOffset] = useState(0);
-  const [activeImage, setActiveImage] = useState(0);
-  const [loadedStates, setLoadedStates] = useState<boolean[]>(
-    () => HERO_IMAGES.map((_, index) => index === 0),
-  );
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleMediaChange = (event: MediaQueryListEvent | MediaQueryList) => {
-      setMotionEnabled(!event.matches);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let time = 0;
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
     };
 
-    handleMediaChange(mediaQuery);
+    canvas.addEventListener("mousemove", handleMouseMove);
 
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", handleMediaChange);
-    } else {
-      mediaQuery.addListener(handleMediaChange);
-    }
+    // Wave parameters
+    const waves = [
+      { amplitude: 30, frequency: 0.015, speed: 0.3, color: "rgba(243, 156, 18, 0.08)" },
+      { amplitude: 25, frequency: 0.02, speed: 0.5, color: "rgba(23, 162, 184, 0.12)" },
+      { amplitude: 20, frequency: 0.025, speed: 0.4, color: "rgba(10, 61, 98, 0.08)" },
+    ];
 
-    return () => {
-      if (typeof mediaQuery.removeEventListener === "function") {
-        mediaQuery.removeEventListener("change", handleMediaChange);
-      } else {
-        mediaQuery.removeListener(handleMediaChange);
-      }
-    };
-  }, []);
+    const animate = () => {
+      time += 0.01;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  useEffect(() => {
-    if (!motionEnabled || typeof window === "undefined") {
-      setScrollOffset(0);
-      return;
-    }
+      // Draw flowing waves
+      waves.forEach((wave, index) => {
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height);
 
-    let ticking = false;
+        for (let x = 0; x <= canvas.width; x += 5) {
+          const mouseInfluence = Math.exp(
+            -Math.pow((x - mouseX) / 200, 2) - Math.pow((canvas.height * 0.6 - mouseY) / 200, 2)
+          );
+          const y =
+            canvas.height * 0.6 +
+            Math.sin(x * wave.frequency + time * wave.speed) * wave.amplitude +
+            mouseInfluence * 30;
 
-    const updateOffset = () => {
-      setScrollOffset(Math.min(Math.max(window.scrollY, 0), 600));
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateOffset);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    updateOffset();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [motionEnabled]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const preloaders = HERO_IMAGES.slice(1).map((image) => {
-      const preloader = new window.Image();
-      preloader.src = image.src;
-      return preloader;
-    });
-
-    return () => {
-      preloaders.forEach((preloader) => {
-        preloader.src = "";
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!motionEnabled || HERO_IMAGES.length <= 1) {
-      setActiveImage(0);
-      return;
-    }
-
-    const interval = window.setInterval(() => {
-      setActiveImage((current) => {
-        const total = HERO_IMAGES.length;
-        for (let step = 1; step <= total; step += 1) {
-          const candidate = (current + step) % total;
-          if (loadedStates[candidate]) {
-            return candidate;
-          }
+          ctx.lineTo(x, y);
         }
-        return current;
+
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.closePath();
+
+        const gradient = ctx.createLinearGradient(0, canvas.height * 0.4, 0, canvas.height);
+        gradient.addColorStop(0, wave.color);
+        gradient.addColorStop(1, wave.color.replace(/[\d.]+\)/, "0.02)"));
+
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Add wave outline
+        ctx.strokeStyle = wave.color.replace(/[\d.]+\)/, "0.2)");
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
       });
-    }, 9000);
 
-    return () => window.clearInterval(interval);
-  }, [motionEnabled, loadedStates]);
+      // Draw floating particles
+      const particleCount = 8;
+      for (let i = 0; i < particleCount; i++) {
+        const x = (canvas.width / particleCount) * i + (Math.sin(time + i) * 50);
+        const y = canvas.height * 0.3 + Math.cos(time * 0.5 + i * 0.5) * 60;
+        const size = 3 + Math.sin(time + i) * 2;
 
-  const frameTranslate = motionEnabled ? Math.min(scrollOffset * 0.06, 26) : 0;
-  const viewportTranslate = motionEnabled ? Math.min(scrollOffset * 0.22, 140) : 0;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(23, 162, 184, 0.15)";
+        ctx.fill();
+      }
+
+      // Draw gradient orbs with mouse interaction
+      const orbs = [
+        { x: 0.15, y: 0.25, radius: 100, color: [243, 156, 18] },
+        { x: 0.75, y: 0.4, radius: 140, color: [23, 162, 184] },
+        { x: 0.5, y: 0.7, radius: 80, color: [10, 61, 98] },
+      ];
+
+      orbs.forEach((orb) => {
+        const baseX = canvas.width * orb.x;
+        const baseY = canvas.height * orb.y;
+
+        const dx = (mouseX - baseX) * 0.03;
+        const dy = (mouseY - baseY) * 0.03;
+
+        const finalX = baseX + dx + Math.sin(time * 0.5) * 15;
+        const finalY = baseY + dy + Math.cos(time * 0.7) * 15;
+
+        const gradient = ctx.createRadialGradient(finalX, finalY, 0, finalX, finalY, orb.radius);
+        gradient.addColorStop(0, `rgba(${orb.color[0]}, ${orb.color[1]}, ${orb.color[2]}, 0.15)`);
+        gradient.addColorStop(0.5, `rgba(${orb.color[0]}, ${orb.color[1]}, ${orb.color[2]}, 0.08)`);
+        gradient.addColorStop(1, `rgba(${orb.color[0]}, ${orb.color[1]}, ${orb.color[2]}, 0)`);
+
+        ctx.beginPath();
+        ctx.arc(finalX, finalY, orb.radius, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.imageBackground} aria-hidden="true">
-        {HERO_IMAGES.map((image, index) => (
-          <div
-            key={image.id}
-            className={`${styles.backgroundImage} ${index === activeImage ? styles.activeImage : ""}`}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority={index === 0}
-              sizes="100vw"
-              loading={index <= 1 ? "eager" : "lazy"}
-              onLoadingComplete={() => {
-                setLoadedStates((prev) => {
-                  if (prev[index]) {
-                    return prev;
-                  }
-                  const nextStates = [...prev];
-                  nextStates[index] = true;
-                  return nextStates;
-                });
-              }}
-            />
-          </div>
-        ))}
-        <div className={styles.backgroundOverlay} />
-      </div>
-      <div className={styles.backgroundGradient} aria-hidden="true" />
+      <canvas ref={canvasRef} className={styles.interactiveBackground} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.copy}>
-          <p className={styles.tagline}>Atlas Otel Tech</p>
-          <h1>Siteniz yapay zeka teknolojisine hazır mı?</h1>
+          <p className={styles.tagline}>Antalya PlusPOS Resmi İş Ortağı</p>
+          <h1>Otel ve restoran operasyonlarınızı tek ekosistemde yönetin</h1>
           <p className={styles.subtitle}>
-            Atlas Otel Tech ile otel siteniz 7 günde yayında; AI-hazır, hızlı ve
-            dönüşüm odaklı.
+            PlusPOS + Atlas Otel Tech işbirliğiyle; kasa, stok, sipariş, kanal entegrasyonları,
+            QR menü, raporlama ve misafir iletişimi tek merkezden.
           </p>
           <div className={styles.ctas}>
             <a className={styles.primaryCta} href="#demo-form">
-              Demo İsteyin
+              PlusPOS Demo Talep Et
             </a>
-            <a className={styles.secondaryCta} href="#ai-check">
-              Siteniz AI-hazır mı? 2 dakikada öğrenin
+            <a className={styles.secondaryCta} href="#digital-solutions">
+              AI Concierge Çözümlerini Keşfet
             </a>
           </div>
           <p className={styles.microcopy}>
-            Daha az komisyon, daha çok tekrar konuk.
+            Operasyondan satışa, tek platform çözümü.
           </p>
           <ul className={styles.trustList}>
             {TRUST_ITEMS.map((item) => (
@@ -199,94 +172,15 @@ export function Hero() {
             ))}
           </ul>
         </div>
-        <div className={styles.preview} aria-label="Otel sitesi ön izleme maketi">
-          <div
-            className={styles.previewWindow}
-            style={
-              motionEnabled
-                ? {
-                    transform: `translateY(${frameTranslate}px) rotateX(${Math.min(
-                      scrollOffset * 0.01,
-                      5,
-                    )}deg)`,
-                  }
-                : undefined
-            }
-          >
-            <div className={styles.previewToolbar}>
-              <span>Atlas</span>
-              <span>07:24</span>
-            </div>
-            <div className={styles.previewScreen}>
-              <div
-                className={styles.previewViewport}
-                style={motionEnabled ? { transform: `translateY(-${viewportTranslate}px)` } : undefined}
-              >
-                <div className={styles.previewHero}>
-                  <div>
-                    <p>Akdeniz Suites</p>
-                    <h3>Deniz manzaralı konfor</h3>
-                  </div>
-                  <div className={styles.previewBadge}>Rezervasyon Açık</div>
-                </div>
-                <div className={styles.previewGallery}>
-                  <div className={styles.previewImageLarge}>
-                    <span>Infinity Pool &amp; Beach</span>
-                  </div>
-                  <div className={styles.previewImageSmall}>
-                    <span>Akşam Yemekleri</span>
-                  </div>
-                </div>
-                <div className={styles.previewStats}>
-                  <div>
-                    <span>★★★★★</span>
-                    <p>Booking.com 9.2</p>
-                  </div>
-                  <div>
-                    <span>24/7</span>
-                    <p>AI Concierge</p>
-                  </div>
-                  <div>
-                    <span>+18%</span>
-                    <p>Doğrudan satış</p>
-                  </div>
-                </div>
-                <div className={styles.previewRooms}>
-                  <div className={styles.roomCard}>
-                    <div className={styles.roomTitle}>Deniz Manzaralı Deluxe</div>
-                    <p className={styles.roomMeta}>30 m² · Balkon · Kahvaltı dahil</p>
-                    <span className={styles.roomPrice}>3.450 TL</span>
-                  </div>
-                  <div className={styles.roomCard}>
-                    <div className={styles.roomTitle}>Aile Süit</div>
-                    <p className={styles.roomMeta}>45 m² · 2+1 · Ücretsiz iptal</p>
-                    <span className={styles.roomPrice}>4.250 TL</span>
-                  </div>
-                </div>
-                <div className={styles.previewTimeline}>
-                  <div>
-                    <p>Check-in</p>
-                    <span>14:00</span>
-                  </div>
-                  <div>
-                    <p>Check-out</p>
-                    <span>12:00</span>
-                  </div>
-                  <div>
-                    <p>Erken Rez.</p>
-                    <span>-15%</span>
-                  </div>
-                </div>
-                <div className={styles.previewTestimonial}>
-                  “Atlas concierge 7/24 çok dilli yanıtla rezervasyon teyidi veriyor.”
-                </div>
-                <div className={styles.previewFooter}>
-                  <button type="button">Oda Seç</button>
-                  <button type="button">WhatsApp</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className={styles.visualWrapper}>
+          <Image
+            src="/pluspos-mac-screen.png"
+            alt="PlusPOS Ekran Görünümü"
+            width={800}
+            height={600}
+            priority
+            className={styles.plusposImage}
+          />
         </div>
       </div>
     </section>

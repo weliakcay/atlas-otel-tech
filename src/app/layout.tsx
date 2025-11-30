@@ -16,27 +16,28 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Atlas Otel Tech — 7 Günde AI-Hazır Otel Web Sitesi & Rezervasyon",
+  title: "PlusPOS Antalya | Otel & Restoran Operasyon Sistemleri + AI Web Çözümleri",
   description:
-    "Oteliniz için hızlı, çok dilli ve AI-uyumlu web. Fiyat/yorum modülleri, online rezervasyon ve HotelAIassistant tabanlı concierge. 7 günde yayına alıyoruz.",
+    "Antalya'da PlusPOS resmi iş ortağı Atlas Otel Tech ile otel ve restoran operasyonlarınızı tek ekosistemde yönetin. POS, stok, raporlama, web sitesi, AI concierge ve daha fazlası.",
   metadataBase: new URL("https://example.com"),
   icons: {
     icon: "/favicon.ico",
   },
+  keywords: "pluspos antalya, otel pos sistemleri, restoran pos, qr menü, otel web sitesi, ai concierge, hotelaiassistant, antalya otel teknolojileri",
   openGraph: {
-    title: "Atlas Otel Tech",
+    title: "PlusPOS Antalya | Otel & Restoran Operasyon Sistemleri",
     description:
-      "Komisyon değil, rezervasyon kazanın. Atlas Otel Tech ile 7 günde AI-hazır, hızlı ve dönüşüm odaklı otel siteleri.",
+      "PlusPOS + Atlas Otel Tech işbirliğiyle: Operasyon, web ve AI çözümleri tek elden. Antalya'da yerinde kurulum ve destek.",
     url: "https://example.com",
-    siteName: "Atlas Otel Tech",
+    siteName: "Atlas Otel Tech - PlusPOS Antalya",
     locale: "tr_TR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Atlas Otel Tech",
+    title: "PlusPOS Antalya | Operasyon + AI Çözümleri",
     description:
-      "7 günde AI-hazır otel web sitesi ve rezervasyon çözümü. HotelAIassistant entegrasyonu ile concierge deneyimi.",
+      "Otel ve restoran operasyonlarınızı PlusPOS ile yönetin, Atlas Otel Tech ile dijitalleşin. Tek ekosistem, tam entegrasyon.",
   },
 };
 

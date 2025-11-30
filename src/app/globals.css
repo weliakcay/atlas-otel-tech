@@ -11,6 +11,13 @@
   --color-border: #d3dde5;
   --color-success: #148f77;
   --color-warning: #f39c12;
+  /* PlusPOS brand colors */
+  --color-pluspos: #f39c12;
+  --color-pluspos-soft: #ffe0b3;
+  --color-pluspos-rgb: 243 156 18;
+  /* Unified gradient for PlusPOS + Atlas */
+  --gradient-unified: linear-gradient(135deg, #f39c12 0%, #17a2b8 50%, #0a3d62 100%);
+  --gradient-pluspos-light: linear-gradient(150deg, rgba(243, 156, 18, 0.12), rgba(255, 255, 255, 0.92));
   --shadow-soft: 0 12px 30px rgba(10, 61, 98, 0.08);
   --shadow-hover: 0 18px 40px rgba(10, 61, 98, 0.12);
   --radius-lg: 24px;

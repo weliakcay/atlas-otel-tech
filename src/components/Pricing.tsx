@@ -45,62 +45,68 @@ function createAccentStyle(accent: string, soft: string): CSSProperties {
 
 const PACKAGES = [
   {
-    id: "core",
-    name: "Atlas Core",
-    formValue: "Core",
-    price: "10.000 TL",
+    id: "starter",
+    name: "Operasyon Başlangıç",
+    formValue: "Operasyon Başlangıç",
+    price: "Teklif Alın",
     description:
-      "Temel vitrin, iki dil desteği ve WhatsApp entegrasyonuyla hızlı başlangıç.",
-    cta: "Core ile başla",
+      "Butik oteller ve küçük restoranlar için temel PlusPOS operasyon çözümü.",
+    cta: "Teklif Al",
     features: [
-      "Kurumsal otel sayfaları (TR/EN), odalar, galeri, hizmetler, konum",
-      "Temel SEO, SSL, WhatsApp tıkla-yaz",
-      "KVKK & çerez barı",
+      "PlusPOS temel lisans + 1 POS donanımı",
+      "Temel satış ve stok raporlama",
+      "Antalya'da yerinde kurulum ve eğitim",
+      "İlk ay teknik destek dahil",
     ],
-    accentColor: "#0A3D62",
-    accentSoft: "#9ed7ff",
+    accentColor: "#F39C12",
+    accentSoft: "#ffe0b3",
   },
   {
-    id: "proof",
-    name: "Atlas Proof",
-    formValue: "Proof",
-    price: "15.000 TL",
+    id: "digital",
+    name: "Operasyon + Web",
+    formValue: "Operasyon + Web",
+    price: "Teklif Alın",
     description:
-      "Dinamik fiyat tabloları ve yorum rozetleriyle satış kanıtınızı ön plana çıkarın.",
-    cta: "Proof’a geç",
+      "Orta ölçek oteller için operasyon + dijital varlık paketi.",
+    cta: "Teklif Al",
     features: [
-      "Core + dinamik oda/fiyat listesi (CMS/Sheet beslemeli)",
-      "Misafir yorumları / puan rozetleri",
-      "Promosyon şeridi (erken rezervasyon/kupon)",
+      "Başlangıç paketi + 2 POS donanımı",
+      "Atlas çok dilli web sitesi (TR/EN/DE/RU)",
+      "Dinamik fiyat ve rezervasyon modülü",
+      "Temel SEO optimizasyonu",
     ],
     highlighted: true,
     accentColor: "#17A2B8",
     accentSoft: "#90ecf6",
   },
   {
-    id: "direct",
-    name: "Atlas Direct",
-    formValue: "Direct",
-    price: "25.000 TL",
+    id: "ecosystem",
+    name: "Tüm Ekosistem",
+    formValue: "Tüm Ekosistem",
+    price: "Teklif Alın",
     description:
-      "Online rezervasyon ve ödeme akışıyla doğrudan satışları güvenle yönetin.",
-    cta: "Direct ile rezervasyon alın",
+      "Büyük oteller için tam entegre operasyon, web ve AI concierge çözümü.",
+    cta: "Teklif Al",
     features: [
-      "Proof + online rezervasyon akışı (iyzico/Stripe)",
-      "İletişim/teklif formları, kupon/upsell alanları",
-      "+ HotelAIassistant denemesi (opsiyon)",
+      "Operasyon + Web paketi + sınırsız donanım",
+      "AI concierge (HotelAIassistant entegrasyonu)",
+      "Kanal yöneticisi entegrasyonu (OTA senkronizasyonu)",
+      "Upsell otomasyonları ve detaylı analitik",
     ],
-    accentColor: "#F39C12",
-    accentSoft: "#ffe0b3",
+    accentColor: "#0A3D62",
+    accentSoft: "#9ed7ff",
   },
 ];
 
 const MATRIX = [
-  { label: "Çok dilli", values: ["✅", "✅", "✅"] },
-  { label: "Dinamik fiyat", values: ["❌", "✅", "✅"] },
-  { label: "Yorum entegrasyonu", values: ["❌", "✅", "✅"] },
-  { label: "Rezervasyon/ödeme", values: ["❌", "❌", "✅"] },
-  { label: "AI Concierge", values: ["Opsiyon", "Opsiyon", "Opsiyon"] },
+  { label: "POS & Kasa", values: ["✅", "✅", "✅"] },
+  { label: "El Terminali", values: ["1 adet", "2 adet", "Sınırsız"] },
+  { label: "Stok & Raporlama", values: ["Temel", "Gelişmiş", "Tam"] },
+  { label: "Çok Dilli Web Sitesi", values: ["❌", "✅", "✅"] },
+  { label: "Online Rezervasyon", values: ["❌", "Temel", "Gelişmiş"] },
+  { label: "AI Concierge", values: ["❌", "❌", "✅"] },
+  { label: "Kanal Entegrasyonu", values: ["❌", "❌", "✅"] },
+  { label: "Yerinde Kurulum", values: ["✅", "✅", "✅ + Eğitim"] },
 ];
 
 const SCHEMA_DATA = PACKAGES.map((pkg) => ({
@@ -126,10 +132,10 @@ export function Pricing() {
     <section id="pricing" className={styles.section} aria-labelledby="pricing-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <span className={styles.kicker}>Paketler</span>
+          <span className={styles.kicker}>Paketler & Çözüm Seviyeleri</span>
           <h2 id="pricing-heading">İhtiyacınıza göre başlayın, büyüdükçe ekleyin.</h2>
           <p>
-            Modüler yapımızla 7 günde yayına girin, rezervasyon arttıkça Atlas Direct’e geçin.
+            Operasyondan dijitale, tek merkezden yönetin. İşletmeniz büyüdükçe paketinizi genişletin.
           </p>
         </header>
         <div className={styles.grid}>
@@ -190,8 +196,8 @@ export function Pricing() {
           ))}
         </div>
         <p className={styles.maintenance}>
-          Bakım Opsiyonu: Core <strong>1.250 TL/ay</strong> · Proof <strong>1.750 TL/ay</strong> ·
-          Direct <strong>2.750 TL/ay</strong>
+          Tüm paketler Antalya ve çevresinde yerinde kurulum, eğitim ve teknik destek içerir.
+          İhtiyacınıza göre özelleştirilebilir modüler yapı.
         </p>
       </div>
       <Script id="atlas-services" type="application/ld+json">
