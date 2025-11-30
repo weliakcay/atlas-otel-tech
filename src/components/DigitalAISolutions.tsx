@@ -26,7 +26,7 @@ export function DigitalAISolutions() {
               Web + AI Demo İsteyin
             </a>
             <a href="https://hotelaiassistant.io" target="_blank" rel="noreferrer" className={styles.secondaryCta}>
-              HotelAIassistant'ı Keşfet →
+              HotelAIassistant&apos;ı Keşfet →
             </a>
           </div>
         </div>
@@ -39,7 +39,7 @@ export function DigitalAISolutions() {
               height={220}
               priority
             />
-            <span className={styles.qrLabel}>HotelAI Assistant'ı deneyin</span>
+            <span className={styles.qrLabel}>HotelAI Assistant&apos;ı deneyin</span>
           </div>
         </div>
       </div>

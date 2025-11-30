@@ -54,7 +54,7 @@ export function Hero() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw flowing waves
-      waves.forEach((wave, index) => {
+      waves.forEach((wave) => {
         ctx.beginPath();
         ctx.moveTo(0, canvas.height);
 
