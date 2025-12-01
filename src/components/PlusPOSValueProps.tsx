@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import styles from "./PlusPOSValueProps.module.css";
 
 const VALUES = [
@@ -15,6 +12,7 @@ const VALUES = [
       "Detaylı satış ve maliyet raporları",
       "Kanal yöneticisi entegrasyonu",
     ],
+    hue: 30, // PlusPOS turuncu
   },
   {
     title: "Web Sitesi Tasarımı",
@@ -27,6 +25,7 @@ const VALUES = [
       "Online rezervasyon ve ödeme",
       "SEO optimize ve mobil uyumlu",
     ],
+    hue: 200, // Atlas mavi
   },
   {
     title: "Yapay Zeka Çözümleri",
@@ -39,20 +38,11 @@ const VALUES = [
       "Otomatik yanıt ve öneriler",
       "Misafir memnuniyeti artışı",
     ],
+    hue: 180, // Teal/cyan
   },
 ];
 
 export function PlusPOSValueProps() {
-  const [flippedCards, setFlippedCards] = useState<boolean[]>([false, false, false]);
-
-  const toggleFlip = (index: number) => {
-    setFlippedCards((prev) => {
-      const newState = [...prev];
-      newState[index] = !newState[index];
-      return newState;
-    });
-  };
-
   return (
     <section id="pluspos-overview" className={styles.section}>
       <div className={styles.inner}>
@@ -63,39 +53,48 @@ export function PlusPOSValueProps() {
         </header>
         <div className={styles.cardGrid}>
           {VALUES.map((value, index) => (
-            <div key={value.title} className={styles.card} onClick={() => toggleFlip(index)}>
-              <div className={`${styles.cardInner} ${flippedCards[index] ? styles.flipped : ""}`}>
-                <div className={`${styles.cardFace} ${styles.cardFront}`}>
-                  <div
-                    className={styles.cardBackground}
-                    style={{ backgroundImage: `url(${value.image})` }}
-                  />
-                  <div className={styles.cardOverlay} />
-                  <div className={styles.cardContent}>
-                    <div>
-                      <h2>{value.title}</h2>
-                      <p>{value.description}</p>
-                    </div>
-                    <div className={styles.flipHint} aria-label="Kartı çevirmek için tıklayın">↻</div>
-                  </div>
+            <div
+              key={value.title}
+              className={styles.flipCardContainer}
+              style={{ "--hue": value.hue } as React.CSSProperties}
+            >
+              <div className={styles.flipCard}>
+                {/* Card Front - Solid color with title and features */}
+                <div className={styles.cardFront}>
+                  <h2 className={styles.cardTitle}>{value.title}</h2>
+                  <ul>
+                    {value.features.map((feature) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
                 </div>
-                <div className={`${styles.cardFace} ${styles.cardBack}`}>
-                  <div>
-                    <h3>Özellikler</h3>
-                    <ul className={styles.features}>
-                      {value.features.map((feature) => (
-                        <li key={feature}>{feature}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className={styles.ctaButtons}>
-                    <a href="#demo-form" className={styles.primaryBtn}>
-                      Demo Talep Et
-                    </a>
-                    <a href="#pricing" className={styles.secondaryBtn}>
-                      Detaylı Bilgi
-                    </a>
-                  </div>
+
+                {/* Card Back - Image with button/QR */}
+                <div className={styles.cardBack}>
+                  {index === 2 ? (
+                    /* Card 3 Back - QR Code */
+                    <div className={styles.qrBackContent}>
+                      <img src={value.image} alt={value.title} className={styles.qrCodeImage} />
+                    </div>
+                  ) : (
+                    <>
+                      {/* Cards 1 & 2 Back - Image + Button */}
+                      <figure className={styles.figure}>
+                        <div className={styles.imgBg}></div>
+                        <img src={value.image} alt={value.title} />
+                      </figure>
+                      <div className={styles.backContent}>
+                        <h3>{value.title}</h3>
+                        <p>{value.description}</p>
+                        <a
+                          href={index === 0 ? "#pricing" : "#demo-form"}
+                          className={styles.primaryBtn}
+                        >
+                          {index === 0 ? "Teklif Al" : "Demo Talep Et"}
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
