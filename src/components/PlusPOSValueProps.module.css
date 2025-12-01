@@ -2,31 +2,7 @@
   position: relative;
   padding: 80px 28px;
   background: linear-gradient(180deg, rgba(240, 249, 255, 0.85), rgba(255, 255, 255, 0.96));
-  overflow: hidden;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  top: -60px;
-  left: 50%;
-  width: 180px;
-  height: 12px;
-  background: linear-gradient(90deg, rgba(23, 162, 184, 0.55), rgba(10, 61, 98, 0.4));
-  border-radius: 999px;
-  transform: translateX(-50%);
-  opacity: 0.5;
-}
-
-.section::after {
-  content: "";
-  position: absolute;
-  bottom: -140px;
-  left: -120px;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(23, 162, 184, 0.18), transparent 65%);
-  pointer-events: none;
+  overflow: visible;
 }
 
 .inner {
@@ -67,76 +43,267 @@
   font-size: 1.05rem;
 }
 
-.grid {
+.cardGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 32px;
 }
 
 .card {
+  height: 420px;
+  cursor: pointer;
   position: relative;
-  background:
-    linear-gradient(160deg, rgba(23, 162, 184, 0.18), rgba(255, 255, 255, 0.9)),
-    var(--color-surface);
+  perspective: 1000px;
+  z-index: 1;
+}
+
+.cardInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardFace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
   border-radius: var(--radius-lg);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(10, 61, 98, 0.08);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
   overflow: hidden;
 }
 
-.card::after {
+.cardFront {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(23, 162, 184, 0.15), 0 0 0 1px rgba(23, 162, 184, 0.1);
+}
+
+.cardBackground {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7) saturate(1.2);
+  transition: transform 0.6s ease;
+}
+
+.card:hover .cardBackground {
+  transform: scale(1.05);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 61, 98, 0.92) 0%,
+    rgba(23, 162, 184, 0.85) 50%,
+    rgba(10, 61, 98, 0.88) 100%
+  );
+  backdrop-filter: blur(2px);
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  color: #fff;
+}
+
+.cardContent h2 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cardContent > div > p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.flipHint {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+  font-size: 1.2rem;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(240, 249, 255, 0.95) 100%
+  );
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 32px rgba(10, 61, 98, 0.2), 0 0 0 1px rgba(23, 162, 184, 0.15);
+  position: relative;
+}
+
+.cardBack::before {
   content: "";
   position: absolute;
-  inset: 18px;
-  border-radius: calc(var(--radius-lg) - 12px);
-  border: 1px dashed rgba(23, 162, 184, 0.22);
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-pluspos), var(--color-accent), var(--color-primary));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-hover);
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  background: linear-gradient(140deg, rgba(10, 61, 98, 0.15), rgba(23, 162, 184, 0.3));
-  display: grid;
-  place-items: center;
-}
-
-.icon span {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--color-primary);
-}
-
-.card h3 {
+.cardBack h3 {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   color: var(--color-primary);
+  margin-bottom: 16px;
 }
 
-.card p {
-  color: var(--color-muted);
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.features li::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--color-pluspos), #e08e0b);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(243, 156, 18, 0.3);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+}
+
+.secondaryBtn {
+  background: rgba(23, 162, 184, 0.1);
+  color: var(--color-accent);
+  border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.secondaryBtn:hover {
+  background: rgba(23, 162, 184, 0.2);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 960px) {
-  .grid {
+  .cardGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 680px) {
-  .grid {
+  .cardGrid {
     grid-template-columns: 1fr;
+  }
+
+  .card {
+    height: 380px;
+  }
+
+  .cardContent h2 {
+    font-size: 1.5rem;
+  }
+
+  .cardContent > div > p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardInner {
+    transition: none;
+  }
+
+  .cardBackground {
+    transition: none;
+  }
+
+  .flipHint {
+    animation: none;
   }
 }
