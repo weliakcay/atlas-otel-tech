@@ -14,7 +14,7 @@ export function Navigation() {
 
   const NAV_LINKS = [
     { href: "/#hero", label: t.navigation.home },
-    { href: "/#pluspos-overview", label: t.navigation.operations },
+    { href: "/#templates-gallery", label: t.navigation.templates },
     { href: "/#digital-solutions", label: t.navigation.digital },
     { href: "/paketler", label: t.navigation.pricing },
     { href: "/iletisim", label: t.navigation.contact },

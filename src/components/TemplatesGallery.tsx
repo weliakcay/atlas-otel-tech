@@ -167,7 +167,7 @@ export function TemplatesGallery() {
 
   return (
     <section
-      id="templates"
+      id="templates-gallery"
       className={styles.section}
       aria-labelledby="templates-heading"
     >
