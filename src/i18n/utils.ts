@@ -3,8 +3,8 @@ import { defaultLocale } from './config';
 
 const dictionaries = {
   tr: () => import('./locales/tr.json').then((module) => module.default),
-  en: () => import('./locales/en.json').then((module) => module.default),
-  de: () => import('./locales/de.json').then((module) => module.default),
+  en: () => import('./locales/tr.json').then((module) => module.default), // TODO: Replace with en.json
+  de: () => import('./locales/tr.json').then((module) => module.default), // TODO: Replace with de.json
 };
 
 export const getDictionary = async (locale: Locale) => {

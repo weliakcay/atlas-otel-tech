@@ -4,15 +4,13 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Locale } from "./config";
 import { defaultLocale } from "./config";
 import tr from "./locales/tr.json";
-import en from "./locales/en.json";
-import de from "./locales/de.json";
 
 type Dictionary = typeof tr;
 
 const translations: Record<Locale, Dictionary> = {
   tr,
-  en,
-  de,
+  en: tr, // TODO: Add English translations
+  de: tr, // TODO: Add German translations
 };
 
 type I18nContextType = {
