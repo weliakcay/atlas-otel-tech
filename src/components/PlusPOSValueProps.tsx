@@ -1,55 +1,44 @@
+"use client";
+
+import { useI18n } from "@/i18n/client";
 import styles from "./PlusPOSValueProps.module.css";
 
-const VALUES = [
-  {
-    title: "PlusPOS Operasyon Sistemleri",
-    description:
-      "Otel ve restoran işletmeniz için eksiksiz POS çözümü. Kasa, stok yönetimi, sipariş takibi, detaylı raporlama ve kanal entegrasyonları tek platformda.",
-    image: "/pluspos-mac-screen.png",
-    features: [
-      "Hızlı ve kolay kasa işlemleri",
-      "Gelişmiş stok ve reçete yönetimi",
-      "Detaylı satış ve maliyet raporları",
-      "Kanal yöneticisi entegrasyonu",
-    ],
-    hue: 30, // PlusPOS turuncu
-  },
-  {
-    title: "Web Sitesi Tasarımı",
-    description:
-      "Çok dilli, SEO uyumlu ve AI-hazır profesyonel web siteleri. Online rezervasyon, dinamik fiyatlandırma ve ödeme entegrasyonu ile direkt satışlarınızı artırın.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Çok dilli destek (TR/EN/DE/RU)",
-      "Dinamik fiyat ve yorum modülleri",
-      "Online rezervasyon ve ödeme",
-      "SEO optimize ve mobil uyumlu",
-    ],
-    hue: 200, // Atlas mavi
-  },
-  {
-    title: "Yapay Zeka Çözümleri",
-    description:
-      "7/24 çalışan AI concierge ile misafir deneyimini üst seviyeye taşıyın. Çok dilli WhatsApp desteği, otomatik yanıtlar ve akıllı öneriler.",
-    image: "/hotelaiassistant-qr.png",
-    features: [
-      "7/24 çok dilli AI concierge",
-      "WhatsApp ve QR ile kolay erişim",
-      "Otomatik yanıt ve öneriler",
-      "Misafir memnuniyeti artışı",
-    ],
-    hue: 180, // Teal/cyan
-  },
-];
-
 export function PlusPOSValueProps() {
+  const { t } = useI18n();
+
+  const VALUES = [
+    {
+      title: t.plusposValueProps.cards.pluspos.title,
+      description: t.plusposValueProps.cards.pluspos.description,
+      image: "/pluspos-mac-screen.png",
+      features: t.plusposValueProps.cards.pluspos.features,
+      cta: t.plusposValueProps.cards.pluspos.cta,
+      hue: 30,
+    },
+    {
+      title: t.plusposValueProps.cards.web.title,
+      description: t.plusposValueProps.cards.web.description,
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      features: t.plusposValueProps.cards.web.features,
+      cta: t.plusposValueProps.cards.web.cta,
+      hue: 200,
+    },
+    {
+      title: t.plusposValueProps.cards.ai.title,
+      description: t.plusposValueProps.cards.ai.description,
+      image: "/hotelaiassistant-qr.png",
+      features: t.plusposValueProps.cards.ai.features,
+      hue: 180,
+    },
+  ];
+
   return (
     <section id="pluspos-overview" className={styles.section}>
       <div className={styles.inner}>
         <header className={styles.header}>
-          <span className={styles.kicker}>Hizmetlerimiz</span>
-          <h2>Otel ve Restoranınız İçin Eksiksiz Çözümler</h2>
-          <p>Operasyondan dijitale, yapay zeka destekli tüm hizmetler tek elden.</p>
+          <span className={styles.kicker}>{t.plusposValueProps.kicker}</span>
+          <h2>{t.plusposValueProps.title}</h2>
+          <p>{t.plusposValueProps.subtitle}</p>
         </header>
         <div className={styles.cardGrid}>
           {VALUES.map((value, index) => (
@@ -87,10 +76,10 @@ export function PlusPOSValueProps() {
                         <h3>{value.title}</h3>
                         <p>{value.description}</p>
                         <a
-                          href={index === 0 ? "#pricing" : "#demo-form"}
+                          href={index === 0 ? "/paketler" : "#demo-form"}
                           className={styles.primaryBtn}
                         >
-                          {index === 0 ? "Teklif Al" : "Demo Talep Et"}
+                          {value.cta}
                         </a>
                       </div>
                     </>

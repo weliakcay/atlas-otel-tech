@@ -1,0 +1,344 @@
+{
+  "navigation": {
+    "home": "Ana Sayfa",
+    "operations": "Operasyon Sistemleri",
+    "digital": "Dijital & AI Çözümleri",
+    "pricing": "Paketler",
+    "templates": "Tasarım Modelleri",
+    "resources": "Kaynaklar",
+    "contact": "İletişim",
+    "aiSolutions": "AI Çözümleri",
+    "plusposDemo": "PlusPOS Demo"
+  },
+  "hero": {
+    "tagline": "Antalya PlusPOS Resmi İş Ortağı",
+    "title": "Butik otel ve restoranlar için PlusPOS destekli operasyon, web tasarım ve AI concierge çözümleri",
+    "subtitle": "Atlas Otel Tech, Antalya PlusPOS resmi iş ortağı olarak; kasa ve stok yönetimi, çok dilli web siteleri ve yapay zeka misafir asistanlarını tek ekosistemde birleştirir. Misafir deneyimini ve işletme operasyonlarını aynı anda iyileştirir.",
+    "ctaPrimary": "PlusPOS demo talep et",
+    "ctaSecondary": "AI concierge demoyu incele",
+    "trustItems": {
+      "operations": "Otel & restoranlar için uçtan uca operasyon yönetimi",
+      "package": "Donanım + yazılım + eğitim tek pakette",
+      "ai": "AI destekli misafir iletişimi ve satış artırma",
+      "support": "Antalya ve çevresinde yerinde kurulum & destek"
+    }
+  },
+  "plusposValueProps": {
+    "kicker": "Hizmetlerimiz",
+    "title": "Otel ve Restoranınız İçin Eksiksiz Çözümler",
+    "subtitle": "Operasyondan dijitale, yapay zeka destekli tüm hizmetler tek elden.",
+    "cards": {
+      "pluspos": {
+        "title": "PlusPOS Operasyon Sistemleri",
+        "description": "Otel ve restoran işletmeniz için eksiksiz POS çözümü. Kasa, stok yönetimi, sipariş takibi, detaylı raporlama ve kanal entegrasyonları tek platformda.",
+        "features": [
+          "Hızlı ve kolay kasa işlemleri",
+          "Gelişmiş stok ve reçete yönetimi",
+          "Detaylı satış ve maliyet raporları",
+          "Kanal yöneticisi entegrasyonu"
+        ],
+        "cta": "Teklif Al"
+      },
+      "web": {
+        "title": "Web Sitesi Tasarımı",
+        "description": "Çok dilli, SEO uyumlu ve AI-hazır profesyonel web siteleri. Online rezervasyon, dinamik fiyatlandırma ve ödeme entegrasyonu ile direkt satışlarınızı artırın.",
+        "features": [
+          "Çok dilli destek (TR/EN/DE/RU)",
+          "Dinamik fiyat ve yorum modülleri",
+          "Online rezervasyon ve ödeme",
+          "SEO optimize ve mobil uyumlu"
+        ],
+        "cta": "Demo Talep Et"
+      },
+      "ai": {
+        "title": "Yapay Zeka Çözümleri",
+        "description": "7/24 çalışan AI concierge ile misafir deneyimini üst seviyeye taşıyın. Çok dilli WhatsApp desteği, otomatik yanıtlar ve akıllı öneriler.",
+        "features": [
+          "7/24 çok dilli AI concierge",
+          "WhatsApp ve QR ile kolay erişim",
+          "Otomatik yanıt ve öneriler",
+          "Misafir memnuniyeti artışı"
+        ]
+      }
+    }
+  },
+  "operationsGrid": {
+    "kicker": "PlusPOS Operasyon Modülleri",
+    "title": "Otel ve restoran işletmenizi nasıl güçlendiriyoruz?",
+    "subtitle": "Tek bir ekosistemde tüm operasyonel ihtiyaçlarınız.",
+    "modules": [
+      {
+        "title": "POS & Kasa Sistemleri",
+        "description": "Hızlı satış, bölünmüş ödeme, raporlama. Tüm ödeme yöntemleri entegre."
+      },
+      {
+        "title": "El Terminalleri & Mobil Sipariş",
+        "description": "Garsonlar masa başında sipariş alır, mutfağa anında iletir."
+      },
+      {
+        "title": "QR Menü & Kanal Entegrasyonları",
+        "description": "Yemeksepeti, Getir, Trendyol Yemek entegrasyonu. QR ile self-servis menü."
+      },
+      {
+        "title": "Detaylı Satış & Stok Raporlama",
+        "description": "Günlük/aylık satış, ürün bazlı performans, Z raporu, ciro analizi."
+      },
+      {
+        "title": "Bulut Yedekleme & Güvenli Veri",
+        "description": "Tüm veriler bulutta, güvenli, her yerden erişilebilir."
+      },
+      {
+        "title": "Stok, Reçete & Maliyet Yönetimi",
+        "description": "Restoran için reçete tabanlı stok takibi, maliyet analizi."
+      },
+      {
+        "title": "Kanal Yöneticisi Entegrasyonu",
+        "description": "Booking.com, Airbnb, Expedia gibi OTA'larla senkronizasyon."
+      },
+      {
+        "title": "Rezervasyon & Ön Büro Modülü",
+        "description": "Otel check-in/check-out, oda durumu, konuk kayıtları."
+      }
+    ]
+  },
+  "digitalSolutions": {
+    "kicker": "Dijital & AI Çözümleri",
+    "title": "Operasyondan sonraki adım: Doğrudan satış ve akıllı misafir iletişimi",
+    "description": "Atlas Otel Tech ile 7 günde AI-hazır, hızlı ve dönüşüm odaklı otel web sitesi. HotelAIassistant entegrasyonuyla 7/24 çok dilli concierge desteği.",
+    "benefits": [
+      "Çok dilli web sitesi (TR/EN/DE/RU)",
+      "Dinamik fiyat & yorum modülleri",
+      "Online rezervasyon & ödeme (iyzico/Stripe)",
+      "AI concierge (WhatsApp/QR ile erişim)",
+      "Daha az komisyon, daha çok direkt rezervasyon"
+    ],
+    "ctaPrimary": "Web + AI Demo İsteyin",
+    "ctaSecondary": "HotelAIassistant'ı Keşfet",
+    "qrLabel": "HotelAI Assistant'ı deneyin"
+  },
+  "pricing": {
+    "kicker": "Hizmetlerimiz",
+    "title": "İhtiyacınıza özel çözümler",
+    "subtitle": "PlusPOS operasyonundan AI misafir asistanına, otel ve restoranınız için modüler hizmetler.",
+    "services": {
+      "pluspos": {
+        "name": "PlusPOS Operasyon Çözümleri",
+        "description": "Kasa, stok, ürün ve şube yönetimini tek platformda toplamak isteyen butik otel ve restoranlar için tam PlusPOS kurulumu.",
+        "features": [
+          "Kasa ve stok yönetimi kurulumu",
+          "Butik otel & restoran için hazır yapılandırmalar",
+          "Antalya'da yerinde keşif ve eğitim",
+          "Temel raporlama & performans takibi"
+        ],
+        "cta": "Teklif Al"
+      },
+      "web": {
+        "name": "Web Sitesi Kurulumu & AI-Uyumlu Dijital Vitrin",
+        "description": "Modern, hızlı ve AI entegrasyonuna hazır bir web sitesi ile online varlığını güçlendirmek isteyen otel ve restoranlar için.",
+        "features": [
+          "Mobil uyumlu modern web tasarım",
+          "Rezervasyon / sipariş talep formları",
+          "TR/EN/DE/RU çok dilli altyapıya hazır mimari",
+          "AI concierge entegrasyonuna uygun yapı"
+        ],
+        "cta": "Teklif Al"
+      },
+      "ai": {
+        "name": "Yapay Zeka Misafir Asistanı",
+        "description": "Oda, menü, hizmet ve rezervasyon sorularına 7/24 yanıt verebilen HotelAIassistant tabanlı akıllı misafir asistanı.",
+        "features": [
+          "HotelAIassistant tabanlı AI concierge",
+          "Web sitesi veya QR kod erişimi",
+          "Rezervasyon & menü akış senaryoları",
+          "Upsell önerileri ve temel analitik"
+        ],
+        "ctaPrimary": "AI Demoyu İncele",
+        "ctaSecondary": "Teklif Al"
+      }
+    }
+  },
+  "socialProof": {
+    "kicker": "Sosyal Kanıt",
+    "title": "Rezervasyon artışı ve memnuniyet puanlarında kanıtlı sonuçlar.",
+    "ratings": [
+      {
+        "platform": "Google",
+        "score": "4.8 / 5",
+        "detail": "186 yorum"
+      },
+      {
+        "platform": "Booking.com",
+        "score": "9.2 / 10",
+        "detail": "Top 3 şehir oteli"
+      },
+      {
+        "platform": "Tripadvisor",
+        "score": "#1",
+        "detail": "Yılın butik oteli"
+      }
+    ],
+    "testimonials": [
+      {
+        "name": "Didem Kaya",
+        "role": "Genel Müdür · Lumen Boutique",
+        "quote": "7 günde yayına aldık. WhatsApp teyit akışı ve promosyon şeritleri doluluk oranımızı %18 artırdı."
+      },
+      {
+        "name": "Mert Özkan",
+        "role": "Satış Müdürü · Maris Resort",
+        "quote": "AI concierge sayesinde gece vardiyası yükü azaldı. Atlas ekibi entegrasyonları rötuşladı."
+      },
+      {
+        "name": "Selin Aksoy",
+        "role": "İş Geliştirme · UrbanStay",
+        "quote": "Dinamik fiyatları Sheet üzerinden güncelliyoruz, kanal yöneticisine bağlı kalmadan satış yapıyoruz."
+      }
+    ],
+    "clientsLabel": "Atlas Otel Tech müşterileri"
+  },
+  "timeline": {
+    "kicker": "7 Günde Yayın",
+    "title": "Şeffaf proje takvimi.",
+    "subtitle": "Her adımı sözleşmede netleştiriyoruz. Opsiyonel bakım paketleriyle sürdürüyoruz.",
+    "steps": [
+      {
+        "day": "Gün 1",
+        "title": "Kickoff & İçerik Teslimi",
+        "details": [
+          "Otel isim/marka, logo, renkler, odalar, fiyat yapısı (varsa).",
+          "Domain/DNS/hosting/SSL erişimleri. KVKK metinleri."
+        ]
+      },
+      {
+        "day": "Gün 2–3",
+        "title": "Kurulum & Tema",
+        "details": [
+          "Çok dilli yapı, sayfa hiyerarşisi, temel SEO, hız optimizasyonu."
+        ]
+      },
+      {
+        "day": "Gün 4",
+        "title": "Fiyat/Yorum Modülleri",
+        "details": [
+          "Dinamik fiyat tabloları, review rozetleri/pulları."
+        ]
+      },
+      {
+        "day": "Gün 5",
+        "title": "Rezervasyon Akışı (Direct ise)",
+        "details": [
+          "Ödeme sağlayıcı sandbox, kupon/upsell alanları."
+        ]
+      },
+      {
+        "day": "Gün 6",
+        "title": "Test & Düzeltme",
+        "details": [
+          "QA, CWV ölçümü, formlar, WhatsApp linkleri, KVKK onay akışı."
+        ]
+      },
+      {
+        "day": "Gün 7",
+        "title": "Yayın & Handover",
+        "details": [
+          "Canlıya geçiş, kısa kullanım eğitim videosu, mini rehber."
+        ]
+      }
+    ],
+    "note": "PMS/Channel Manager entegrasyonları kapsam dışıdır (ilerleyen fazda değerlendirilir)."
+  },
+  "faq": {
+    "kicker": "SSS",
+    "title": "En çok sorulan sorular.",
+    "items": [
+      {
+        "question": "OTA'lardan farkınız ne?",
+        "answer": "OTA komisyonlarına bağımlılığı azaltmak için sitenizde doğrudan rezervasyon akışını kuruyor, promosyon kodları ve sadakat bloklarıyla tekrar satışa odaklanıyoruz."
+      },
+      {
+        "question": "Ödeme güvenliği nasıl?",
+        "answer": "iyzico veya Stripe altyapısıyla 3D Secure/sanal POS seçeneklerini kullanıyoruz. SSL sertifikası, KVKK uyumlu form onayları ve loglama standarttır."
+      },
+      {
+        "question": "7 günde nasıl yayına alıyorsunuz?",
+        "answer": "Hazır tasarım modelleri + modüler CMS ile ilerliyoruz. İçerikleri teslim alır almaz çok dilli yapıyı kuruyor, 4. günde fiyat/yorum modüllerini bağlıyoruz."
+      },
+      {
+        "question": "Mevcut sitem taşınır mı, SEO kaybı olur mu?",
+        "answer": "URL haritası, yönlendirmeler ve schema işaretlemeleriyle sıfır SEO kaybı hedefliyoruz. CDN, CWV optimizasyonu ve hreflang kontrolleri proje planında yer alır."
+      },
+      {
+        "question": "AI concierge (HotelAIassistant) nasıl devreye girer?",
+        "answer": "HotelAIassistant entegrasyonu Atlas Direct paketinde opsiyoneldir. WhatsApp, web chat ve e-posta kanallarında çok dilli botu eğitiyor, önceden onaylı yanıt ağaçlarıyla yayına alıyoruz."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Komisyon değil, rezervasyon kazanın.",
+    "address": "Altındağ Mah. Muratpaşa / Antalya",
+    "phone": "+90 554 900 1093",
+    "email": "info@hotelaiassistant.io",
+    "aiLine": "Atlas Concierge AI — HotelAIassistant altyapısıyla",
+    "sections": {
+      "menu": {
+        "title": "Menü",
+        "links": [
+          { "label": "Ana Sayfa", "href": "#hero" },
+          { "label": "Çözümler", "href": "#solutions" },
+          { "label": "Tasarım Modelleri", "href": "#templates" },
+          { "label": "Fiyatlar", "href": "#pricing" },
+          { "label": "İletişim", "href": "#contact" }
+        ]
+      },
+      "resources": {
+        "title": "Kaynaklar",
+        "links": [
+          { "label": "Paket Detayları", "href": "/cozumler" },
+          { "label": "Tema Galerisi", "href": "/tasarim-modelleri" },
+          { "label": "Rehberler", "href": "/kaynaklar" },
+          { "label": "Blog", "href": "/kaynaklar#blog" }
+        ]
+      },
+      "legal": {
+        "title": "Yasal",
+        "links": [
+          { "label": "KVKK", "href": "/kvkk" },
+          { "label": "Çerez Politikası", "href": "/cerez-politikasi" },
+          { "label": "Gizlilik", "href": "/gizlilik" }
+        ]
+      }
+    },
+    "copyright": "Atlas Otel Tech. Tüm hakları saklıdır.",
+    "whatsappCta": "WhatsApp tıkla-yaz"
+  },
+  "contactForm": {
+    "kicker": "Son CTA",
+    "title": "7 günde yayına alalım.",
+    "subtitle": "Atlas ekibi, tasarım ve rezervasyon akışını birlikte detaylandıralım.",
+    "fields": {
+      "fullName": "Ad Soyad",
+      "hotelName": "Otel Adı",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "website": "Mevcut Site URL",
+      "websitePlaceholder": "https://siteniz.com",
+      "package": "Paket",
+      "message": "Mesaj",
+      "messagePlaceholder": "İhtiyaçlarınızı paylaşın"
+    },
+    "packages": [
+      { "value": "PlusPOS Hizmetleri", "label": "PlusPOS Hizmetleri" },
+      { "value": "Web Tasarımı", "label": "Web Tasarımı" },
+      { "value": "AI Hizmetler", "label": "AI Hizmetler" },
+      { "value": "Diğer", "label": "Diğer" }
+    ],
+    "kvkkLabel": "KVKK onayını kabul ediyorum.",
+    "kvkkLink": "KVKK Aydınlatma Metni",
+    "submitButton": "Teklif Al",
+    "submittingButton": "Gönderiliyor...",
+    "whatsappCta": "WhatsApp ile konuş",
+    "successMessage": "Talebiniz alındı. 24 saat içinde dönüş yapıyoruz.",
+    "successLinkText": "Takvimden randevu seçin",
+    "errorMessage": "Beklenmeyen bir sorun oluştu."
+  }
+}

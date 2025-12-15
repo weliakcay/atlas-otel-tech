@@ -36,14 +36,17 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 80px;
 }
 
 .header {
-  max-width: 540px;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-items: center;
 }
 
 .kicker {
@@ -68,83 +71,100 @@
   color: var(--color-muted);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.card {
+/* Package Section - Vertical Layout */
+.packageSection {
   position: relative;
   background:
-    linear-gradient(150deg, rgba(var(--card-accent-rgb, 10 61 98), 0.12), rgba(var(--card-accent-rgb, 10 61 98), 0.03) 75%),
+    linear-gradient(150deg, rgba(var(--card-accent-rgb, 10 61 98), 0.08), rgba(var(--card-accent-rgb, 10 61 98), 0.02) 75%),
     var(--color-surface);
-  border-radius: calc(var(--radius-lg) + 4px);
-  padding: 32px;
-  border: 1px solid rgba(var(--card-accent-rgb, 10 61 98), 0.35);
-  box-shadow: 0 24px 52px rgba(var(--card-accent-rgb, 10 61 98), 0.16);
+  border-radius: calc(var(--radius-lg) + 8px);
+  padding: 60px 48px;
+  border: 2px solid rgba(var(--card-accent-rgb, 10 61 98), 0.25);
+  box-shadow: 0 24px 52px rgba(var(--card-accent-rgb, 10 61 98), 0.12);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  gap: 40px;
   overflow: hidden;
 }
 
-.card::before {
+.packageSection::before {
   content: "";
   position: absolute;
-  top: -120px;
-  right: -90px;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(var(--card-accent-rgb, 10 61 98), 0.22), transparent 65%);
-  pointer-events: none;
-  transform: rotate(8deg);
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: var(--radius-lg);
-  border: 1px dashed rgba(var(--card-accent-rgb, 10 61 98), 0.18);
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(var(--card-accent-rgb, 10 61 98), 0.15), transparent 70%);
   pointer-events: none;
 }
 
-.card > * {
+.packageHeader {
+  text-align: center;
   position: relative;
   z-index: 1;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 68px rgba(var(--card-accent-rgb, 10 61 98), 0.22);
+.packageHeader h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  color: var(--card-accent, var(--color-primary));
+  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-.highlighted {
-  border-color: rgba(var(--card-accent-rgb, 10 61 98), 0.55);
-  box-shadow: 0 38px 80px rgba(var(--card-accent-rgb, 10 61 98), 0.28);
-  transform: translateY(-6px);
+.packageDescription {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.cardHeader {
+/* Modules Grid for PlusPOS */
+.modulesGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.moduleCard {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(var(--card-accent-rgb, 10 61 98), 0.15);
+  border-radius: var(--radius-md);
+  padding: 24px;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  flex-direction: column;
   gap: 12px;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    background-color var(--transition-base);
 }
 
-.card h3 {
+.moduleCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(var(--card-accent-rgb, 10 61 98), 0.15);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.moduleIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.moduleCard h4 {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1rem;
   color: var(--color-primary);
+  line-height: 1.3;
+  font-weight: 600;
 }
 
-.price {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--card-accent, var(--color-accent));
-  font-weight: 700;
+.moduleCard p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.5;
 }
 
 .description {
@@ -152,15 +172,21 @@
 }
 
 .featureList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
   color: var(--color-text);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .featureList li {
   position: relative;
   padding-left: 28px;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .featureList li::before {
@@ -175,99 +201,128 @@
   box-shadow: 0 0 12px rgba(var(--card-accent-rgb, 10 61 98), 0.24);
 }
 
-.cta {
-  margin-top: auto;
-  align-self: flex-start;
+.packageCta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta,
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border-radius: 999px;
+  padding: 16px 48px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    background-color var(--transition-base), border-color var(--transition-base);
+  white-space: nowrap;
+}
+
+.cta,
+.ctaPrimary {
   background: linear-gradient(140deg, var(--card-accent, var(--color-primary)), var(--card-accent-soft, var(--color-accent)));
   color: #fff;
-  padding: 12px 22px;
-  font-weight: 600;
   box-shadow: 0 14px 32px rgba(var(--card-accent-rgb, 10 61 98), 0.28);
-  transition: transform var(--transition-base), box-shadow var(--transition-base),
-    background-color var(--transition-base);
+  border: 1px solid transparent;
 }
 
 .cta:hover,
-.cta:focus-visible {
+.cta:focus-visible,
+.ctaPrimary:hover,
+.ctaPrimary:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 18px 38px rgba(var(--card-accent-rgb, 10 61 98), 0.32);
+  box-shadow: 0 18px 38px rgba(var(--card-accent-rgb, 10 61 98), 0.36);
 }
 
-.matrix {
-  background: linear-gradient(160deg, rgba(10, 61, 98, 0.08), rgba(23, 162, 184, 0.12));
-  border-radius: calc(var(--radius-lg) + 4px);
-  border: 1px solid rgba(10, 61, 98, 0.1);
-  overflow: hidden;
-  box-shadow: 0 18px 38px rgba(10, 61, 98, 0.1);
+.ctaSecondary {
+  background: rgba(var(--card-accent-rgb, 10 61 98), 0.08);
+  color: var(--card-accent, var(--color-primary));
+  border: 1px solid rgba(var(--card-accent-rgb, 10 61 98), 0.3);
+  box-shadow: 0 4px 12px rgba(var(--card-accent-rgb, 10 61 98), 0.12);
 }
 
-.matrixHeader,
-.matrixRow {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  padding: 16px 24px;
+.ctaSecondary:hover,
+.ctaSecondary:focus-visible {
+  background: rgba(var(--card-accent-rgb, 10 61 98), 0.15);
+  border-color: rgba(var(--card-accent-rgb, 10 61 98), 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(var(--card-accent-rgb, 10 61 98), 0.18);
 }
 
-.matrixHeader {
-  background: rgba(255, 255, 255, 0.3);
-  font-weight: 600;
-  color: var(--color-primary);
-  backdrop-filter: blur(8px);
-}
-
-.matrixRow:nth-of-type(even) {
-  background: rgba(255, 255, 255, 0.24);
-}
-
-.matrixRow span {
-  font-weight: 500;
-  color: var(--color-muted);
-}
-
-.matrixRow span:first-of-type {
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.maintenance {
-  text-align: center;
-  background: linear-gradient(90deg, rgba(23, 162, 184, 0.15), rgba(10, 61, 98, 0.2));
-  color: #fff;
-  padding: 18px;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  box-shadow: 0 14px 28px rgba(10, 61, 98, 0.18);
-}
-
-.maintenance strong {
-  color: #fff;
-}
 
 @media (max-width: 960px) {
-  .grid {
+  .modulesGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .matrix {
-    overflow-x: auto;
+  .featureList {
+    grid-template-columns: 1fr;
   }
 
-  .matrixHeader,
-  .matrixRow {
-    min-width: 560px;
-    grid-template-columns: repeat(4, minmax(140px, 1fr));
+  .packageSection {
+    padding: 48px 32px;
   }
 }
 
 @media (max-width: 680px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .section {
+    padding: 60px 20px;
   }
 
-  .matrixHeader,
-  .matrixRow {
-    min-width: 520px;
+  .inner {
+    gap: 60px;
+  }
+
+  .packageSection {
+    padding: 36px 24px;
+    gap: 32px;
+  }
+
+  .packageHeader h3 {
+    font-size: 1.6rem;
+  }
+
+  .packageDescription {
+    font-size: 1rem;
+  }
+
+  .modulesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .moduleCard {
+    padding: 20px;
+  }
+
+  .moduleIcon {
+    font-size: 2rem;
+  }
+
+  .featureList {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cta,
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    padding: 14px 32px;
+    font-size: 1rem;
+  }
+
+  .packageCta {
+    flex-direction: column;
+    gap: 12px;
   }
 }

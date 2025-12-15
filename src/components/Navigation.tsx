@@ -3,21 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useI18n } from "@/i18n/client";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import styles from "./Navigation.module.css";
-
-const NAV_LINKS = [
-  { href: "/#hero", label: "Ana Sayfa" },
-  { href: "/#pluspos-overview", label: "Operasyon Sistemleri" },
-  { href: "/#digital-solutions", label: "Dijital & AI Çözümleri" },
-  { href: "/#pricing", label: "Paketler" },
-  { href: "/tasarim-modelleri", label: "Tasarım Modelleri" },
-  { href: "/kaynaklar", label: "Kaynaklar" },
-  { href: "/#contact", label: "İletişim" },
-];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [elevated, setElevated] = useState(false);
+  const { t } = useI18n();
+
+  const NAV_LINKS = [
+    { href: "/#hero", label: t.navigation.home },
+    { href: "/#pluspos-overview", label: t.navigation.operations },
+    { href: "/#digital-solutions", label: t.navigation.digital },
+    { href: "/paketler", label: t.navigation.pricing },
+    { href: "/iletisim", label: t.navigation.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,19 +83,20 @@ export function Navigation() {
             ))}
           </ul>
           <div className={styles.actions}>
+            <LanguageSwitcher />
             <Link
               className={styles.secondaryCta}
               href="/#digital-solutions"
               onClick={closeMenu}
             >
-              AI Çözümleri
+              {t.navigation.aiSolutions}
             </Link>
             <Link
               className={styles.primaryCta}
               href="/#demo-form"
               onClick={closeMenu}
             >
-              PlusPOS Demo
+              {t.navigation.plusposDemo}
             </Link>
           </div>
         </div>

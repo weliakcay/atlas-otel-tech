@@ -84,15 +84,16 @@
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  gap: 24px;
+  gap: 16px;
 }
 
 .links ul {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .links a {
@@ -121,7 +122,8 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .secondaryCta,
@@ -130,11 +132,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 16px 48px;
+  padding: 10px 20px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   letter-spacing: 0.025em;
   border: 1px solid transparent;
+  white-space: nowrap;
   transition: transform var(--transition-base), box-shadow var(--transition-base),
     background-color var(--transition-base), border-color var(--transition-base);
 }

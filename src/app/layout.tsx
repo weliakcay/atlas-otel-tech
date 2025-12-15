@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import Script from "next/script";
+import { I18nProvider } from "@/i18n/client";
 import "./globals.css";
 
 const inter = Inter({
@@ -49,7 +50,9 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${inter.variable} ${manrope.variable}`}>
-        {children}
+        <I18nProvider>
+          {children}
+        </I18nProvider>
       </body>
       <Script id="atlas-org-schema" type="application/ld+json">
         {JSON.stringify({

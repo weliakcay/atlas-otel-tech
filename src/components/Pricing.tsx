@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Script from "next/script";
 import { type CSSProperties } from "react";
+import { useI18n } from "@/i18n/client";
 import styles from "./Pricing.module.css";
 
 function hexToRgbChannels(color: string): string | null {
@@ -43,162 +45,160 @@ function createAccentStyle(accent: string, soft: string): CSSProperties {
   return style as CSSProperties;
 }
 
-const PACKAGES = [
-  {
-    id: "starter",
-    name: "Operasyon Başlangıç",
-    formValue: "Operasyon Başlangıç",
-    price: "Teklif Alın",
-    description:
-      "Butik oteller ve küçük restoranlar için temel PlusPOS operasyon çözümü.",
-    cta: "Teklif Al",
-    features: [
-      "PlusPOS temel lisans + 1 POS donanımı",
-      "Temel satış ve stok raporlama",
-      "Antalya'da yerinde kurulum ve eğitim",
-      "İlk ay teknik destek dahil",
-    ],
-    accentColor: "#F39C12",
-    accentSoft: "#ffe0b3",
-  },
-  {
-    id: "digital",
-    name: "Operasyon + Web",
-    formValue: "Operasyon + Web",
-    price: "Teklif Alın",
-    description:
-      "Orta ölçek oteller için operasyon + dijital varlık paketi.",
-    cta: "Teklif Al",
-    features: [
-      "Başlangıç paketi + 2 POS donanımı",
-      "Atlas çok dilli web sitesi (TR/EN/DE/RU)",
-      "Dinamik fiyat ve rezervasyon modülü",
-      "Temel SEO optimizasyonu",
-    ],
-    highlighted: true,
-    accentColor: "#17A2B8",
-    accentSoft: "#90ecf6",
-  },
-  {
-    id: "ecosystem",
-    name: "Tüm Ekosistem",
-    formValue: "Tüm Ekosistem",
-    price: "Teklif Alın",
-    description:
-      "Büyük oteller için tam entegre operasyon, web ve AI concierge çözümü.",
-    cta: "Teklif Al",
-    features: [
-      "Operasyon + Web paketi + sınırsız donanım",
-      "AI concierge (HotelAIassistant entegrasyonu)",
-      "Kanal yöneticisi entegrasyonu (OTA senkronizasyonu)",
-      "Upsell otomasyonları ve detaylı analitik",
-    ],
-    accentColor: "#0A3D62",
-    accentSoft: "#9ed7ff",
-  },
-];
-
-const MATRIX = [
-  { label: "POS & Kasa", values: ["✅", "✅", "✅"] },
-  { label: "El Terminali", values: ["1 adet", "2 adet", "Sınırsız"] },
-  { label: "Stok & Raporlama", values: ["Temel", "Gelişmiş", "Tam"] },
-  { label: "Çok Dilli Web Sitesi", values: ["❌", "✅", "✅"] },
-  { label: "Online Rezervasyon", values: ["❌", "Temel", "Gelişmiş"] },
-  { label: "AI Concierge", values: ["❌", "❌", "✅"] },
-  { label: "Kanal Entegrasyonu", values: ["❌", "❌", "✅"] },
-  { label: "Yerinde Kurulum", values: ["✅", "✅", "✅ + Eğitim"] },
-];
-
-const SCHEMA_DATA = PACKAGES.map((pkg) => ({
-  "@context": "https://schema.org",
-  "@type": "Service",
-  name: pkg.name,
-  description: pkg.description,
-  provider: {
-    "@type": "Organization",
-    name: "Atlas Otel Tech",
-  },
-  offers: {
-    "@type": "Offer",
-    price: pkg.price.replace(/\D/g, ""),
-    priceCurrency: "TRY",
-    url: `https://example.com/#${pkg.id}`,
-    availability: "https://schema.org/InStock",
-  },
-}));
-
 export function Pricing() {
+  const { t } = useI18n();
+
+  const SERVICES = [
+    {
+      id: "pluspos",
+      name: t.pricing.services.pluspos.name,
+      formValue: t.pricing.services.pluspos.name,
+      description: t.pricing.services.pluspos.description,
+      cta: t.pricing.services.pluspos.cta,
+      ctaLink: "/iletisim",
+      features: t.pricing.services.pluspos.features,
+      accentColor: "#F39C12",
+      accentSoft: "#ffe0b3",
+      modules: [
+        { icon: "🧾", title: "POS & Kasa Sistemleri", description: "Hızlı satış, bölünmüş ödeme, raporlama" },
+        { icon: "📱", title: "El Terminalleri & Mobil Sipariş", description: "Garsonlar masa başında sipariş alır" },
+        { icon: "📲", title: "QR Menü & Kanal Entegrasyonları", description: "Yemeksepeti, Getir, Trendyol entegrasyonu" },
+        { icon: "📊", title: "Detaylı Satış & Stok Raporlama", description: "Günlük/aylık satış, ciro analizi" },
+        { icon: "☁️", title: "Bulut Yedekleme", description: "Tüm veriler bulutta, güvenli" },
+        { icon: "🍽️", title: "Stok & Maliyet Yönetimi", description: "Reçete tabanlı stok takibi" },
+        { icon: "🔗", title: "Kanal Yöneticisi", description: "Booking.com, Airbnb, Expedia entegrasyonu" },
+        { icon: "🛎️", title: "Rezervasyon Modülü", description: "Otel check-in/check-out, oda durumu" },
+      ],
+    },
+    {
+      id: "web",
+      name: t.pricing.services.web.name,
+      formValue: t.pricing.services.web.name,
+      description: t.pricing.services.web.description,
+      cta: t.pricing.services.web.cta,
+      ctaLink: "/iletisim",
+      features: t.pricing.services.web.features,
+      accentColor: "#17A2B8",
+      accentSoft: "#90ecf6",
+    },
+    {
+      id: "ai",
+      name: t.pricing.services.ai.name,
+      formValue: t.pricing.services.ai.name,
+      description: t.pricing.services.ai.description,
+      features: t.pricing.services.ai.features,
+      primaryCta: t.pricing.services.ai.ctaPrimary,
+      primaryCtaLink: "https://hotelaiassistant.pro",
+      secondaryCta: t.pricing.services.ai.ctaSecondary,
+      secondaryCtaLink: "/iletisim",
+      accentColor: "#0A3D62",
+      accentSoft: "#9ed7ff",
+      hasMultipleCtas: true,
+    },
+  ];
+
+  const SCHEMA_DATA = SERVICES.map((service) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    description: service.description,
+    provider: {
+      "@type": "Organization",
+      name: "Atlas Otel Tech",
+    },
+  }));
+
   return (
     <section id="pricing" className={styles.section} aria-labelledby="pricing-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <span className={styles.kicker}>Paketler & Çözüm Seviyeleri</span>
-          <h2 id="pricing-heading">İhtiyacınıza göre başlayın, büyüdükçe ekleyin.</h2>
-          <p>
-            Operasyondan dijitale, tek merkezden yönetin. İşletmeniz büyüdükçe paketinizi genişletin.
-          </p>
+          <span className={styles.kicker}>{t.pricing.kicker}</span>
+          <h2 id="pricing-heading">{t.pricing.title}</h2>
+          <p>{t.pricing.subtitle}</p>
         </header>
-        <div className={styles.grid}>
-          {PACKAGES.map((pkg) => (
-            <article
-              key={pkg.id}
-              id={pkg.id}
-              className={`${styles.card} ${pkg.highlighted ? styles.highlighted : ""}`}
-              style={createAccentStyle(pkg.accentColor, pkg.accentSoft)}
-            >
-              <div className={styles.cardHeader}>
-                <h3>{pkg.name}</h3>
-                <p className={styles.price}>{pkg.price}</p>
+
+        {SERVICES.map((service, index) => (
+          <article
+            key={service.id}
+            id={service.id}
+            className={styles.packageSection}
+            style={createAccentStyle(service.accentColor, service.accentSoft)}
+          >
+            <div className={styles.packageHeader}>
+              <h3>{service.name}</h3>
+              <p className={styles.packageDescription}>{service.description}</p>
+            </div>
+
+            {service.modules ? (
+              <div className={styles.modulesGrid}>
+                {service.modules.map((module) => (
+                  <div key={module.title} className={styles.moduleCard}>
+                    <div className={styles.moduleIcon} aria-hidden="true">
+                      {module.icon}
+                    </div>
+                    <h4>{module.title}</h4>
+                    <p>{module.description}</p>
+                  </div>
+                ))}
               </div>
-              <p className={styles.description}>{pkg.description}</p>
+            ) : (
               <ul className={styles.featureList}>
-                {pkg.features.map((feature) => (
+                {service.features.map((feature) => (
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
-              <a
-                className={styles.cta}
-                href="#demo-form"
-                data-package={pkg.formValue}
-                onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.dispatchEvent(
-                      new CustomEvent("atlas-package-select", {
-                        detail: { packageName: pkg.formValue },
-                      }),
-                    );
-                  }
-                }}
-              >
-                {pkg.cta}
-              </a>
-            </article>
-          ))}
-        </div>
-        <div className={styles.matrix} role="table" aria-label="Paket özellik matrisi">
-          <div className={styles.matrixHeader} role="row">
-            <span role="columnheader">Özellik</span>
-            {PACKAGES.map((pkg) => (
-              <span key={pkg.id} role="columnheader">
-                {pkg.name}
-              </span>
-            ))}
-          </div>
-          {MATRIX.map((row) => (
-            <div key={row.label} className={styles.matrixRow} role="row">
-              <span role="cell">{row.label}</span>
-              {row.values.map((value, index) => (
-                <span key={`${row.label}-${index}`} role="cell">
-                  {value}
-                </span>
-              ))}
+            )}
+
+            <div className={styles.packageCta}>
+              {service.hasMultipleCtas ? (
+                <>
+                  <a
+                    className={styles.ctaPrimary}
+                    href={service.primaryCtaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-package={service.formValue}
+                  >
+                    {service.primaryCta}
+                  </a>
+                  <a
+                    className={styles.ctaSecondary}
+                    href={service.secondaryCtaLink}
+                    data-package={service.formValue}
+                    onClick={() => {
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(
+                          new CustomEvent("atlas-package-select", {
+                            detail: { packageName: service.formValue },
+                          }),
+                        );
+                      }
+                    }}
+                  >
+                    {service.secondaryCta}
+                  </a>
+                </>
+              ) : (
+                <a
+                  className={styles.cta}
+                  href={service.ctaLink}
+                  data-package={service.formValue}
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(
+                        new CustomEvent("atlas-package-select", {
+                          detail: { packageName: service.formValue },
+                        }),
+                      );
+                    }
+                  }}
+                >
+                  {service.cta}
+                </a>
+              )}
             </div>
-          ))}
-        </div>
-        <p className={styles.maintenance}>
-          Tüm paketler Antalya ve çevresinde yerinde kurulum, eğitim ve teknik destek içerir.
-          İhtiyacınıza göre özelleştirilebilir modüler yapı.
-        </p>
+          </article>
+        ))}
       </div>
       <Script id="atlas-services" type="application/ld+json">
         {JSON.stringify(SCHEMA_DATA)}

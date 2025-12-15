@@ -175,6 +175,7 @@
 @media (max-width: 768px) {
   .hero {
     padding: 110px 20px 80px;
+    min-height: auto;
   }
 
   .inner {
@@ -185,14 +186,29 @@
     gap: 20px;
   }
 
+  .copy h1 {
+    font-size: clamp(2rem, 5vw, 2.4rem);
+  }
+
   .ctas {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .primaryCta,
   .secondaryCta {
     text-align: center;
+    width: 100%;
+  }
+
+  .trustList {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trustList li {
+    width: 100%;
   }
 }
 

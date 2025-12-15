@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useI18n } from "@/i18n/client";
 import styles from "./ContactForm.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function ContactForm() {
+  const { t } = useI18n();
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
-  const [selectedPackage, setSelectedPackage] = useState("Core");
+  const [selectedPackage, setSelectedPackage] = useState(t.contactForm.packages[0].value);
 
   useEffect(() => {
     const handlePackageSelect = (event: Event) => {
@@ -49,19 +51,19 @@ export function ContactForm() {
         | null;
 
       if (!response.ok || (result?.status && result.status !== "ok")) {
-        throw new Error(result?.message ?? "Gönderim hatası");
+        throw new Error(result?.message ?? t.contactForm.errorMessage);
       }
 
       setStatus("success");
-      setMessage(result?.message ?? "Talebiniz alındı. 24 saat içinde dönüş yapıyoruz.");
+      setMessage(result?.message ?? t.contactForm.successMessage);
       window.setTimeout(() => {
         event.currentTarget.reset();
-        setSelectedPackage("Core");
+        setSelectedPackage(t.contactForm.packages[0].value);
       }, 0);
     } catch (error) {
       console.error(error);
       const errorMessage =
-        error instanceof Error && error.message ? error.message : "Beklenmeyen bir sorun oluştu.";
+        error instanceof Error && error.message ? error.message : t.contactForm.errorMessage;
       setMessage(errorMessage);
       setStatus("error");
     }
@@ -71,22 +73,22 @@ export function ContactForm() {
     <section id="contact" className={styles.section} aria-labelledby="contact-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <span className={styles.kicker}>Son CTA</span>
-          <h2 id="contact-heading">7 günde yayına alalım.</h2>
-          <p>Atlas ekibi, tasarım ve rezervasyon akışını birlikte detaylandıralım.</p>
+          <span className={styles.kicker}>{t.contactForm.kicker}</span>
+          <h2 id="contact-heading">{t.contactForm.title}</h2>
+          <p>{t.contactForm.subtitle}</p>
         </header>
         <form id="demo-form" className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.grid}>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-fullName">Ad Soyad *</label>
+              <label htmlFor="cta-fullName">{t.contactForm.fields.fullName} *</label>
               <input id="cta-fullName" name="fullName" type="text" required autoComplete="name" />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-hotelName">Otel Adı *</label>
+              <label htmlFor="cta-hotelName">{t.contactForm.fields.hotelName} *</label>
               <input id="cta-hotelName" name="hotelName" type="text" required />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-email">E-posta *</label>
+              <label htmlFor="cta-email">{t.contactForm.fields.email} *</label>
               <input
                 id="cta-email"
                 name="email"
@@ -97,7 +99,7 @@ export function ContactForm() {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-phone">Telefon *</label>
+              <label htmlFor="cta-phone">{t.contactForm.fields.phone} *</label>
               <input
                 id="cta-phone"
                 name="phone"
@@ -108,16 +110,16 @@ export function ContactForm() {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-website">Mevcut Site URL</label>
+              <label htmlFor="cta-website">{t.contactForm.fields.website}</label>
               <input
                 id="cta-website"
                 name="website"
                 type="url"
-                placeholder="https://siteniz.com"
+                placeholder={t.contactForm.fields.websitePlaceholder}
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="cta-package">Paket *</label>
+              <label htmlFor="cta-package">{t.contactForm.fields.package} *</label>
               <select
                 id="cta-package"
                 name="package"
@@ -125,31 +127,31 @@ export function ContactForm() {
                 value={selectedPackage}
                 onChange={(event) => setSelectedPackage(event.target.value)}
               >
-                <option value="Core">Core</option>
-                <option value="Proof">Proof</option>
-                <option value="Direct">Direct</option>
+                {t.contactForm.packages.map((pkg) => (
+                  <option key={pkg.value} value={pkg.value}>{pkg.label}</option>
+                ))}
               </select>
             </div>
             <div className={`${styles.inputGroup} ${styles.messageField}`}>
-              <label htmlFor="cta-message">Mesaj</label>
-              <textarea id="cta-message" name="message" rows={4} placeholder="İhtiyaçlarınızı paylaşın" />
+              <label htmlFor="cta-message">{t.contactForm.fields.message}</label>
+              <textarea id="cta-message" name="message" rows={4} placeholder={t.contactForm.fields.messagePlaceholder} />
             </div>
           </div>
           <label className={styles.checkbox}>
             <input type="checkbox" name="kvkk" required />
             <span>
-              KVKK onayını kabul ediyorum.{" "}
+              {t.contactForm.kvkkLabel}{" "}
               <a href="/kvkk" target="_blank" rel="noreferrer">
-                KVKK Aydınlatma Metni
+                {t.contactForm.kvkkLink}
               </a>
             </span>
           </label>
           <div className={styles.actions}>
             <button type="submit" disabled={status === "submitting"}>
-              {status === "submitting" ? "Gönderiliyor..." : "Teklif Al"}
+              {status === "submitting" ? t.contactForm.submittingButton : t.contactForm.submitButton}
             </button>
             <a href="https://wa.me/00905549001093" target="_blank" rel="noreferrer">
-              WhatsApp ile konuş
+              {t.contactForm.whatsappCta}
             </a>
           </div>
           {message && (
@@ -161,7 +163,7 @@ export function ContactForm() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Takvimden randevu seçin →
+                  {t.contactForm.successLinkText} →
                 </a>
               )}
             </p>

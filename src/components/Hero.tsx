@@ -2,17 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useI18n } from "@/i18n/client";
 import styles from "./Hero.module.css";
-
-const TRUST_ITEMS = [
-  { label: "Otel & restoranlar için uçtan uca operasyon yönetimi" },
-  { label: "Donanım + yazılım + eğitim tek pakette" },
-  { label: "AI destekli misafir iletişimi ve satış artırma" },
-  { label: "Antalya ve çevresinde yerinde kurulum & destek" },
-];
 
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -144,32 +139,36 @@ export function Hero() {
       <canvas ref={canvasRef} className={styles.interactiveBackground} aria-hidden="true" />
       <div className={styles.inner}>
         <div className={styles.copy}>
-          <p className={styles.tagline}>Antalya PlusPOS Resmi İş Ortağı</p>
-          <h1>Otel ve restoran operasyonlarınızı tek ekosistemde yönetin</h1>
+          <p className={styles.tagline}>{t.hero.tagline}</p>
+          <h1>{t.hero.title}</h1>
           <p className={styles.subtitle}>
-            PlusPOS + Atlas Otel Tech işbirliğiyle; kasa, stok, sipariş, kanal entegrasyonları,
-            QR menü, raporlama ve misafir iletişimi tek merkezden.
+            {t.hero.subtitle}
           </p>
           <div className={styles.ctas}>
             <a className={styles.primaryCta} href="#demo-form">
-              PlusPOS Demo Talep Et
+              {t.hero.ctaPrimary}
             </a>
-            <a className={styles.secondaryCta} href="#digital-solutions">
-              AI Concierge Çözümlerini Keşfet
+            <a className={styles.secondaryCta} href="https://hotelaiassistant.pro" target="_blank" rel="noopener noreferrer">
+              {t.hero.ctaSecondary}
             </a>
           </div>
-          <p className={styles.microcopy}>
-            Operasyondan satışa, tek platform çözümü.
-          </p>
           <ul className={styles.trustList}>
-            {TRUST_ITEMS.map((item) => (
-              <li key={item.label}>
-                <span className={styles.trustIcon} aria-hidden="true">
-                  ✓
-                </span>
-                {item.label}
-              </li>
-            ))}
+            <li>
+              <span className={styles.trustIcon} aria-hidden="true">✓</span>
+              {t.hero.trustItems.operations}
+            </li>
+            <li>
+              <span className={styles.trustIcon} aria-hidden="true">✓</span>
+              {t.hero.trustItems.package}
+            </li>
+            <li>
+              <span className={styles.trustIcon} aria-hidden="true">✓</span>
+              {t.hero.trustItems.ai}
+            </li>
+            <li>
+              <span className={styles.trustIcon} aria-hidden="true">✓</span>
+              {t.hero.trustItems.support}
+            </li>
           </ul>
         </div>
         <div className={styles.visualWrapper}>

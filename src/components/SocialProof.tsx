@@ -1,76 +1,32 @@
+"use client";
+
 import Image from "next/image";
+import { useI18n } from "@/i18n/client";
 import styles from "./SocialProof.module.css";
-
-const RATINGS = [
-  {
-    platform: "Google",
-    score: "4.8 / 5",
-    detail: "186 yorum",
-    logo: "/google-logo.png",
-    logoWidth: 140,
-    logoHeight: 47,
-  },
-  {
-    platform: "Booking.com",
-    score: "9.2 / 10",
-    detail: "Top 3 şehir oteli",
-    logo: "/booking-logo.png",
-    logoWidth: 140,
-    logoHeight: 24,
-  },
-  {
-    platform: "Tripadvisor",
-    score: "#1",
-    detail: "Yılın butik oteli",
-    logo: "/tripadvisor-logo.png",
-    logoWidth: 140,
-    logoHeight: 30,
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    name: "Didem Kaya",
-    role: "Genel Müdür · Lumen Boutique",
-    quote:
-      "7 günde yayına aldık. WhatsApp teyit akışı ve promosyon şeritleri doluluk oranımızı %18 artırdı.",
-  },
-  {
-    name: "Mert Özkan",
-    role: "Satış Müdürü · Maris Resort",
-    quote:
-      "AI concierge sayesinde gece vardiyası yükü azaldı. Atlas ekibi entegrasyonları rötuşladı.",
-  },
-  {
-    name: "Selin Aksoy",
-    role: "İş Geliştirme · UrbanStay",
-    quote:
-      "Dinamik fiyatları Sheet üzerinden güncelliyoruz, kanal yöneticisine bağlı kalmadan satış yapıyoruz.",
-  },
-];
 
 const LOGOS = ["Lumen", "Maris", "UrbanStay", "Helios", "NordPeak", "Calipso"];
 
 export function SocialProof() {
+  const { t } = useI18n();
+
   return (
     <section className={styles.section} aria-labelledby="social-proof-heading">
       <div className={styles.inner}>
         <header className={styles.header}>
-          <span className={styles.kicker}>Sosyal Kanıt</span>
-          <h2 id="social-proof-heading">
-            Rezervasyon artışı ve memnuniyet puanlarında kanıtlı sonuçlar.
-          </h2>
+          <span className={styles.kicker}>{t.socialProof.kicker}</span>
+          <h2 id="social-proof-heading">{t.socialProof.title}</h2>
         </header>
         <div className={styles.layout}>
           <div className={styles.ratings}>
-            {RATINGS.map((rating) => (
+            {t.socialProof.ratings.map((rating) => (
               <div key={rating.platform} className={styles.ratingBadge}>
                 <div className={styles.ratingLogo}>
                   <Image
-                    src={rating.logo}
+                    src={rating.platform === "Google" ? "/google-logo.png" :
+                         rating.platform === "Booking.com" ? "/booking-logo.png" : "/tripadvisor-logo.png"}
                     alt={`${rating.platform} logo`}
-                    width={rating.logoWidth}
-                    height={rating.logoHeight}
+                    width={140}
+                    height={rating.platform === "Booking.com" ? 24 : rating.platform === "Tripadvisor" ? 30 : 47}
                     loading="lazy"
                   />
                 </div>
@@ -80,7 +36,7 @@ export function SocialProof() {
             ))}
           </div>
           <div className={styles.testimonials}>
-            {TESTIMONIALS.map((testimonial) => (
+            {t.socialProof.testimonials.map((testimonial) => (
               <blockquote key={testimonial.name}>
                 <p>{testimonial.quote}</p>
                 <cite>
@@ -90,7 +46,7 @@ export function SocialProof() {
             ))}
           </div>
         </div>
-        <div className={styles.logoWall} role="list" aria-label="Atlas Otel Tech müşterileri">
+        <div className={styles.logoWall} role="list" aria-label={t.socialProof.clientsLabel}>
           {LOGOS.map((logo) => (
             <span key={logo} role="listitem">
               {logo}
